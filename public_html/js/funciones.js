@@ -13,6 +13,9 @@ $(window).load(function(){asignarEventos();});
 $( "#dialog" ).dialog({
     autoOpen: false,
     width: 400,
+    modal: true,
+    hide: { effect: "drop", duration: 1000 },
+    show: { effect: "fold", duration: 500 },
     buttons: [
         {
             text: "Aceptar",
