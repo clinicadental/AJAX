@@ -8,13 +8,14 @@ function listarClientes(){
 function cargarAsyncCli(url) {
     if (miXHR) {
         // Activamos el indicador Ajax antes de realizar la petición.
-        document.getElementById("indicador").innerHTML = "<img src='images/ajax-loader.gif'/>";
+        $("#listadoClientes .indicador").html("<img src='images/ajax-loader.gif'/>");
         //Si existe el objeto miXHR
         miXHR.open('GET', encodeURI(url), true); //Abrimos la url, true=ASINCRONA
         // En cada cambio de estado(readyState) se llamará a la función estadoPeticion
         miXHR.onreadystatechange = estadoPeticionCli;
         // Hacemos la petición al servidor. Como parámetro: null ya que los datos van por GET
         miXHR.send(null);
+        $("#listadoClientes .indicador").show();
     }
 }
     /////////////////////////////////////////////////////////
@@ -51,8 +52,8 @@ Piringalla","localidad":"Lugo","provincia":"Lugo","telefono":"982212010","fechav
         }
     }
     // Desactivamos el indicador AJAX cuando termina la petición
-    document.getElementById("indicador").innerHTML = "";
+    $("#listadoClientes .indicador").hide();
     // Imprimimos la tabla dentro del contenedor resultados.
-    document.getElementById("resultados").innerHTML = texto;
+    $("#listadoClientes .resultados").html(texto);
     }
 }

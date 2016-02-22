@@ -206,6 +206,8 @@ function tratarGetClientes(oArrayClientes){
 
 function listarDentistas(){
     
+    $("#listadoDentistas .indicador").show();
+    
     $.ajax({
     // la URL para la petición
     url : 'php/datosdentistas.php',
@@ -224,13 +226,13 @@ function listarDentistas(){
     // la respuesta es pasada como argumento a la función
     success : function(oListaDentistas){
         
+        $("#listadoDentistas .indicador").hide();
+        
         var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>Núm. colegiado</th><th>Fecha alta</th></tr>";
-        // Hacemos un bucle para recorrer todos los objetos literales recibidos en el array         resultados y mostrar su contenido.
  
-            texto +=oListaDentistas;
+        texto +=oListaDentistas;
         
-        
-        $("#listadoDentistas").html(texto);
+        $("#listadoDentistas .resultados").html(texto);
     }
  
     // código a ejecutar si la petición falla;
