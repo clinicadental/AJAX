@@ -1,0 +1,83 @@
+/*----CELESTE CLARO: 86F3FF; CELESTE MEDIO: 43ECFF; CELESTE OSCURO: 36BDCC; AZUL OSCURO: 22767F; GRIS AZULADO: 607C7F;----*/
+
+/*----CUERPO----*/
+.navbar{
+    background-color:#43ECFF;
+}
+#navbar{
+    background-color:#43ECFF;
+}
+#navbar li a{
+	color:#22767F;
+}
+#navbar li a:hover{
+	color:#607C7F;
+}
+#navbar li a:active{
+	color:#36BD;
+}
+#logo{
+    height:25px;
+}
+#logo2{
+    padding-top:10px;
+    height:100px;
+}
+
+body{
+    background-color:#43ECFF;
+    background-image:url(../images/fondo.jpg);
+    background-position:center;
+}
+#contenido{
+    background-color:#fff;
+    margin-top:50px;
+    -webkit-box-shadow:0px 5px 6px 0px rgba(50, 50, 50, 0.56);
+    -moz-box-shadow:0px 5px 6px 0px rgba(50, 50, 50, 0.56);
+    box-shadow:0px 5px 6px 0px rgba(50, 50, 50, 0.56);
+}
+footer{
+    background-color:#22767F;
+    padding:5%;
+    color:#fff;
+}
+footer a{
+    color:#fff;
+}
+
+/*----DISPLAYS----*/
+#form-alta-clientes{display:none;}
+#form-alta-citas{display:none;}
+#form-alta-pagos{display:none;}
+
+#form-edita-clientes{display:none;}
+#form-edita-citas{display:none;}
+#form-edita-pagos{display:none;}
+
+#listadoClientes{display:none;}
+#listadoCitas{display:none;}
+#listadoPagos{display:none;}
+#listadoDentistas{display:none;}
+
+//#dialog{display:none;}
+
+/*----CAPAS----*/
+#capaTransparente{
+    position:fixed;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+    background-color:white;
+    opacity:0.5;
+    z-index:-1;
+}
+#mensajes{
+    display:none;
+    width:30%;
+    height:150px;
+    top:100px;
+    left:35%;
+    position:fixed;
+    z-index:2;
+}

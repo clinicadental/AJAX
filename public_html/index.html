@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dentalia - Clínica Dental</title>
+        <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
+        <link href="css/estilos.css" type="text/css" rel="stylesheet">
+        <link href="jqueryui/jquery-ui.css" type="text/css" rel="stylesheet">
+        <!--<link href="jscalendar-1.0/calendar-green.css" type="text/css" rel="stylesheet">-->
+        
+    </head>
+    <body>
+        <!--NAVBAR-->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container" id="navbar">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Desplegar navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="images/logo.png" id="logo"></img></a>
+                </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="altaCliente" onClick="mostrarFormAltaCliente()">Añadir</a></li>
+                                <li><a href="#" id="editaClientes" onClick="mostrarFormEditaCliente()">Editar</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" id="listaClientes" onClick="mostrarListadoClientes()">Listado</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Citas<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="altaCita" onClick="mostrarFormAltaCita()">Añadir</a></li>
+                                <li><a href="#" id="editaCitas" onClick="mostrarFormEditaCita()">Editar</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" id="listaCitas" onClick="mostrarListadoCitas()">Listado</a></li>
+                            </ul>
+                        </li>      
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pagos<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="altaPago" onClick="mostrarFormAltaPago()">Añadir</a></li>
+                                <li><a href="#" id="editaPagos" onClick="mostrarFormEditaPago()">Editar</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" id="listaPagos" onClick="mostrarListadoPagos()">Listado</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dentistas<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="listaDentistas" onClick="mostrarListadoDentistas()">Listado</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="container" id="contenido">
+            <!--ALTA CLIENTES-->
+            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-clientes">
+                <h2>Alta cliente</h2>
+                <form method="post" class="form-horizontal" name="formClientes">
+                    <div class="form-group" id="bloqueIdCliente">
+                        <label class="control-label" for="idCliente">ID</label>
+                        <input type="text" class="form-control" id="idCliente"/>
+                        <span>Consta de una letra mayúscula y 5 números.</span>
+                    </div>
+                    <div class="form-group" id="bloqueNombreCliente">
+                        <label class="control-label" for="nombreCliente">Nombre</label>
+                        <input type="text" class="form-control" id="nombreCliente"/>
+                    </div>
+                    <div class="form-group" id="bloqueApellidosCliente">
+                        <label class="control-label" for="apellidosCliente">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidosCliente"/>
+                    </div>
+                    <div class="form-group" id="bloqueTelefonoCliente">
+                        <label class="control-label" for="telefonoCliente">Teléfono</label>
+                        <input type="text" class="form-control" id="telefonoCliente"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAltaCliente"/>
+                        <input type="reset" class="btn btn-warning" value="Cancelar"/>
+                    </div>
+                </form>
+            </div>
+            
+            <!--ALTA CITAS-->
+            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-citas">
+                <h2>Alta cita</h2>
+                <form method="post" class="form-horizontal" name="formCitas">
+                    <div class="form-group" id="bloqueIdCita">
+                        <label class="control-label" for="idCita">ID</label>
+                        <input type="text" class="form-control" id="idCita"/>
+                        <span>Consta de una letra mayúscula y 5 números.</span>
+                    </div>
+                    <div class="form-group" id="bloqueClienteCita">
+                        <label class="control-label" for="clienteCita">Cliente</label>
+                        <select class="form-control" id="clienteCita">
+                            <option>--seleccione un cliente--</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bloqueDentistaCita">
+                        <label class="control-label" for="dentistaCita">Dentista</label>
+                        <select class="form-control" id="dentistaCita">
+                            <option>--seleccione un dentista--</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bloquePagoCita">
+                        <label class="control-label" for="pagoCita">Pago</label>
+                        <select class="form-control" id="pagoCita">
+                            <option>--seleccione un pago--</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bloqueFechaCita">
+                        <label class="control-label" for="fechaCita">Fecha</label>
+                        <input type="text" class="form-control" name="date" id="fechaCita" readonly/>
+                        <!--<img src="jscalendar-1.0/img.gif" alt="" id="selector1"/>
+                        <span>Pulsa sobre el icono del calendario.</span>-->
+                    </div>
+                    <div class="form-group" id="bloqueProcedimiento">
+                        <label class="control-label" for="procedimientoCita">Procedimiento</label>
+                        <input type="text" class="form-control" id="procedimientoCita"/>
+                    </div>
+                    <div class="form-group" id="bloqueDescripcion">
+                        <label class="control-label" for="descripcionCita">Descripción</label>
+                        <textarea class="form-control" id="descripcionCita"></textarea>
+                    </div>
+                    <div class="form-group" id="bloqueSalaCita">
+                        <label class="control-label" for="salaCita">Sala</label>
+                        <select class="form-control" id="salaCita">
+                            <option>--seleccione una sala--</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bloqueAtendida">
+                        <label class="checkbox-inline" for="atendidaCita">Atendida
+                            <input type="checkbox" id="atendidaCita"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAltaCita"/>
+                        <input type="reset" class="btn btn-warning" value="Cancelar"/>
+                    </div>
+                </form>
+            </div>
+            
+            <!--ALTA PAGO-->
+            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-pagos">
+                <h2>Alta pago</h2>
+                <form method="post" class="form-horizontal" name="formPagos">
+                    <div class="form-group" id="bloqueIdPago">
+                        <label class="control-label" for="idPago">ID</label>
+                        <input type="text" class="form-control" id="idPago"/>
+                        <span>Consta de una letra mayúscula y 5 números.</span>
+                    </div>
+                    <div class="form-group" id="bloqueClientePago">
+                        <label class="control-label" for="clientePago">Cliente</label>
+                        <select class="form-control" id="clientePago">
+                            <option>--seleccione un cliente--</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bloqueFechaPago">
+                        <label class="control-label" for="fechaPago">Fecha</label>
+                        <input type="text" class="form-control" name="date" id="fechaPago" readonly/>
+                        <!--<img src="jscalendar-1.0/img.gif" alt="" id="selector2"/>
+                        <span>Pulsa sobre el icono del calendario.</span>-->
+                    </div>
+                    <div class="form-group" id="bloqueImportePago">
+                        <label class="control-label" for="importePago">Importe</label>
+                        <input type="text" class="form-control" id="importePago"/>
+                    </div>
+                    <div class="form-group" id="bloquePagada">
+                        <label class="checkbox-inline" for="citaPagada">Pagada
+                            <input type="checkbox" id="citaPagada"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAltaPago"/>
+                        <input type="reset" class="btn btn-warning" value="Cancelar"/>
+                    </div>
+                </form>
+            </div>
+            
+            <!--EDITA CLIENTE-->
+            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-clientes">
+                <h2>Editar cliente</h2>
+                <form method="post" class="form-horizontal" name="formEditaCliente">
+                     <div class="form-group" id="bloqueEditaCliente">
+                        <label class="control-label" for="EditaCliente">Cliente</label>
+                        <select class="form-control" id="editaCliente">
+                            <option>--seleccione un cliente--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="opcion" value="1" checked="checked">Editar
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="opcion" value="2">Borrar
+                                </label>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAceptarCliente"/>
+                        <input type="reset" class="btn btn-warning" value="Cancelar"/>
+                    </div>
+                </form>
+            </div>
+            
+            <!--EDITA CITA-->
+            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-citas">
+                <h2>Editar cita</h2>
+                <form method="post" class="form-horizontal" name="formEditaCita">
+                     <div class="form-group" id="bloqueEditaCita">
+                        <label class="control-label" for="editaCita">Cita</label>
+                        <select class="form-control" id="editaCita">
+                            <option>--seleccione una cita--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="opcion" value="1" checked="checked">Editar
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="opcion" value="2">Borrar
+                                </label>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAceptarCita"/>
+                        <input type="reset" class="btn btn-warning" value="Cancelar"/>
+                    </div>
+                </form>
+            </div>
+            
+            <!--EDITA PAGOS-->
+            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-pagos">
+                <h2>Editar pago</h2>
+                <form method="post" class="form-horizontal" name="formEditaPago">
+                    <div class="form-group" id="bloqueEditaPago">
+                        <label class="control-label" for="editaPago">Pago</label>
+                        <select class="form-control" id="editaPago">
+                            <option>--seleccione un pago--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="opcion" value="1" checked="checked">Editar
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="opcion" value="2">Borrar
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAceptarPago"/>
+                        <input type="reset" class="btn btn-warning" value="Cancelar"/>
+                    </div>
+                </form>
+            </div>
+        
+            <!--LISTADO CLIENTES-->
+            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoClientes">
+                
+                <h2>Listado clientes</h2>
+
+                <div id="resultados"></div>
+
+                <div id="indicador"></div>
+                
+            </div>
+
+            <!--LISTADO CITAS-->
+            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoCitas"></div>
+
+            <!--LISTADO PAGOS-->
+            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoPagos"></div>
+            
+            <!--LISTADO DENTISTAS-->
+            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoDentistas"></div>
+            
+            <!--MENSAJES-->
+            <div id="dialog">
+                <p></p>
+            </div>
+            <div id="capaTransparente"></div>
+
+			<!--SCRIPTS-->
+            <script src="jqueryui/external/jquery/jquery.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="jqueryui/jquery-ui.js"></script>
+            <script src="js/altaCliente.js"></script>
+            <script src="js/ajaxclientes.js"></script>
+            <script type="text/javascript" src="js/objetos.js"></script>
+            <script type="text/javascript" src="js/funciones.js"></script>
+            <!--<script type="text/javascript" src="jscalendar-1.0/calendar.js"></script>
+            <script type="text/javascript" src="jscalendar-1.0/lang/calendar-es.js"></script>
+            <script type="text/javascript" src="jscalendar-1.0/calendar-setup.js"></script>-->
+        </main>
+        
+        <footer>
+            <div class="container">
+                <div class="row text-center">
+                    <a>FAQ</a> - <a>Términos del servicio</a> - <a>Privacidad</a> - <a>Ayuda</a>
+                    <div class="center-block">
+                        <img src="images/logo.png" id="logo2">
+                    </div>
+                    <h4>© Dentalia - Clínica Dental</h4>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
