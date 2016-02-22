@@ -57,7 +57,7 @@ function mostrarFormEditaCliente(){
 function mostrarListadoClientes(){
     ocultarTodo();
     $("#listadoClientes").css("display","block");
-    listarClientes();
+    pedirListaClientes();
 }
 
 
@@ -202,6 +202,12 @@ function tratarGetClientes(oArrayClientes){
             
     });
 
+}
+function pedirListaClientes(){
+    
+    $.getScript('js/listaClientes.js', function() {
+        listarClientes();
+    });
 }
 
 function listarDentistas(){
