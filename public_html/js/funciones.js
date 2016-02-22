@@ -57,7 +57,7 @@ function mostrarFormEditaCliente(){
 function mostrarListadoClientes(){
     ocultarTodo();
     $("#listadoClientes").css("display","block");
-    llamadaAjax();
+    listarClientes();
 }
 
 
@@ -95,6 +95,7 @@ function mostrarListadoPagos(){
 function mostrarListadoDentistas(){
     ocultarTodo();
     $("#listadoDentistas").css("display","block");
+    listarDentistas();
 }
 
 function dialogo(texto,titulo){
@@ -202,3 +203,59 @@ function tratarGetClientes(oArrayClientes){
     });
 
 }
+
+function listarDentistas(){
+    
+    $.ajax({
+    // la URL para la petición
+    url : 'php/datosdentistas.php',
+ 
+    // la información a enviar
+    // (también es posible utilizar una cadena de datos)
+    data : null,
+ 
+    // especifica si será una petición POST o GET
+    type : 'GET',
+ 
+    // el tipo de información que se espera de respuesta
+    dataType : 'html',
+ 
+    // código a ejecutar si la petición es satisfactoria;
+    // la respuesta es pasada como argumento a la función
+    success : function(oListaDentistas){
+        
+        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>Núm. colegiado</th><th>Fecha alta</th></tr>";
+        // Hacemos un bucle para recorrer todos los objetos literales recibidos en el array         resultados y mostrar su contenido.
+ 
+            texto +=oListaDentistas;
+        
+        
+        $("#listadoDentistas").html(texto);
+    }
+ 
+    // código a ejecutar si la petición falla;
+    // son pasados como argumentos a la función
+    // el objeto de la petición en crudo y código de estatus de la petición
+    /*error : function(xhr, status) {
+        alert('Disculpe, existió un problema');
+    },
+ 
+    // código a ejecutar sin importar si la petición falló o no
+    complete : function(xhr, status) {
+        alert('Petición realizada');
+    }*/
+});
+}
+
+/*function tratarListaDentistas(oListaDentistas){
+    
+        
+        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>Núm. colegiado</th><th>Fecha alta</th></tr>";
+        // Hacemos un bucle para recorrer todos los objetos literales recibidos en el array         resultados y mostrar su contenido.
+ 
+            texto +=oArrayDentistas;
+        
+        
+        $("#listadoDentistas").html(texto);
+    }
+}*/
