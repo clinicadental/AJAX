@@ -61,6 +61,7 @@ function mostrarListadoClientes(){
 function mostrarFormAltaCita(){
     ocultarTodo();
     $("#form-alta-citas").css("display","block");
+    cargarSelectClientes();
 }
 function mostrarFormEditaCita(){
     ocultarTodo();
@@ -75,6 +76,7 @@ function mostrarListadoCitas(){
 function mostrarFormAltaPago(){
     ocultarTodo();
     $("#form-alta-pagos").css("display","block");
+    cargarSelectClientes();
 }
 function mostrarFormEditaPago(){
     ocultarTodo();
@@ -184,16 +186,16 @@ function cargarSelectClientes(){
     $.get('php/getClientes.php',null,tratarGetClientes,'json');
 }
 
-function tratarGetClientes(oArrayClientes, sStatus, oXHR){
+function tratarGetClientes(oArrayClientes){
 
-    $("#editaCliente").empty();
+    $(".selectCliente").empty();
     
-    $('<option value="" >--seleccione un cliente--</option>').appendTo("#editaCliente");
+    $('<option value="" >--seleccione un cliente--</option>').appendTo(".selectCliente");
 
     $.each(oArrayClientes, function( i , elemento){
 
-            $('<option value="' + elemento.id + '" >' +  elemento.apellidos+", "+ elemento.nombre + '</option>').appendTo("#editaCliente");
-
+            $('<option value="' + elemento.id + '" >' +  elemento.apellidos+", "+ elemento.nombre + '</option>').appendTo(".selectCliente");
+            
     });
 
 }
