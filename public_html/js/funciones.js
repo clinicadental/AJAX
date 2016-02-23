@@ -154,6 +154,7 @@ function mostrarFormEditaCita(){
 function mostrarListadoCitas(){
     ocultarTodo();
     $("#listadoCitas").css("display","block");
+    pedirListaCitas();
 }
 function mostrarFormAltaPago(){
     ocultarTodo();
@@ -288,15 +289,9 @@ function pedirListaClientes(){
 }
 
 /*----CITAS----*/
-function listarCitas(){
-    $("#listadoCitas").find(".indicador").show();
-    $.ajax({
-        url:"php/datoscitas.php",data:null,type:"GET",datatype:"html",success:function(oListaCitas){
-            $("listadoCitas").find(".indicador").hide();
-            var oTabla='<table class="table"><tr><th>ID</th><th>CLIENTE</th><th>DENTISTA</th><th>PAGO</th><th>FECHA CITA</th><th>PROCEDIMIENTO</th><th>DESCRIPCION</th><th>SALA</th><th>ATENDIDA</th></tr>';
-            oTabla+=oListaCitas;
-            $("#listadoCitas").find(".resultados").html(oTabla);
-        }
+function pedirListaCitas(){
+    $.getScript('js/listaCitas.js',function(){
+        listarCitas();
     });
 }
 
