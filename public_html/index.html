@@ -20,7 +20,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="images/logo.png" id="logo"></img></a>
+                    <a class="navbar-brand" href="#"><img src="images/logo.png" id="logo"/></a>
                 </div>
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
@@ -121,9 +121,7 @@
                     <div class="form-group" id="bloqueFechaCita">
                         <label class="control-label" for="fechaCita">Fecha</label>
                         <input type="text" class="form-control" name="date" id="fechaCita" readonly/>
-                        <!--<img src="jscalendar-1.0/img.gif" alt="" id="selector1"/>
-                        <span>Pulsa sobre el icono del calendario.</span>-->
-                    </div>
+                        </div>
                     <div class="form-group" id="bloqueProcedimiento">
                         <label class="control-label" for="procedimientoCita">Procedimiento</label>
                         <input type="text" class="form-control" id="procedimientoCita"/>
@@ -167,10 +165,10 @@
                     </div>
                     <div class="form-group" id="bloqueFechaPago">
                         <label class="control-label" for="fechaPago">Fecha</label>
-                        <input type="text" class="form-control" name="date" id="fechaPago" readonly/>
+                        <input type="text" class="form-control" name="date" id="fechaPago" readonly/>-->
                         <!--<img src="jscalendar-1.0/img.gif" alt="" id="selector2"/>
                         <span>Pulsa sobre el icono del calendario.</span>-->
-                    </div>
+                        </div>
                     <div class="form-group" id="bloqueImportePago">
                         <label class="control-label" for="importePago">Importe</label>
                         <input type="text" class="form-control" id="importePago"/>
@@ -276,30 +274,30 @@
         
             <!--LISTADO CLIENTES-->
             <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoClientes">
-                
                 <h2>Listado clientes</h2>
-
                 <div class="resultados"></div>
-
                 <div class="indicador"><img src='images/ajax-loader.gif'/></div>
-                
             </div>
 
             <!--LISTADO CITAS-->
-            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoCitas"></div>
+            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoCitas">
+                <h2>Listado de citas</h2>
+                <div class="resultados"></div>
+                <div class="indicador"><img src='images/ajax-loader.gif'/></div>
+            </div>
 
             <!--LISTADO PAGOS-->
-            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoPagos"></div>
+            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoPagos">
+                <h2>Listado de pagos</h2>
+                <div class="resultados"></div>
+                <div class="indicador"><img src='images/ajax-loader.gif'/></div>
+            </div>
             
             <!--LISTADO DENTISTAS-->
             <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoDentistas">
-                
-                <h2>Listado dentistas</h2>
-
+                <h2>Listado de dentistas</h2>
                 <div class="resultados"></div>
-                
                 <div class="indicador"><img src='images/ajax-loader.gif'/></div>
-                
             </div>
             
             <!--MENSAJES-->

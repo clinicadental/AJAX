@@ -1,15 +1,4 @@
-/*----CALENDARIOS----*/
-/*window.addEventListener('load',calendario1,false);
-function calendario1(){Calendar.setup({inputField:"fechaCita",ifFormat:"%d / %m / %Y",button:"selector1"});}
-window.addEventListener('load',calendario2,false);
-function calendario2(){Calendar.setup({inputField:"fechaPago",ifFormat:"%d / %m / %Y",button:"selector2"});}*/
-
-
-/*$("#listaClientes").on('click',function(){ llamadaAjax();});*/
-
 var errores=[];
-$(window).load(function(){asignarEventos();});
-//window.addEventListener('load',asignarEventos,false);
 $( "#dialog" ).dialog({
     autoOpen: false,
     width: 400,
@@ -32,19 +21,113 @@ $( "#dialog" ).dialog({
     ]
 });
 
-function asignarEventos(){
+$(window).load(function(){cargarFormularios();});
+/*function cargarFormularios(){
+    $("#altaCliente").click(function(){
+	$(".bloque:not('#form-alta-clientes')").hide("normal");
+	if($("#form-alta-clientes").size()==0){
+            $("<div>").appendTo("#contenido").load("html/altaCliente.html",function(){$.getScript("js/altaCliente.js");});
+	}
+	else{
+            $("#form-alta-clientes").show("normal");
+	}
+    });
+    $("#editaClientes").click(function(){
+	$(".bloque:not('#form-edita-clientes')").hide("normal");
+	if($("#form-edita-clientes").size()==0){
+            $("<div>").appendTo("#contenido").load("html/editaCliente.html",function(){$.getScript("js/editaCliente.js");});
+	}
+	else{
+            $("#form-edita-clientes").show("normal");
+	}
+    });
+    $("#listaClientes").click(function(){
+	$(".bloque:not('#listadoClientes')").hide("normal");
+	if($("#listadoClientes").size()==0){
+            $("<div>").appendTo("#contenido").load("html/listaClientes.html",function(){$.getScript("js/listaClientes.js");});
+	}
+	else{
+            $("#listadoClientes").show("normal");
+	}
+    });
+
+
+    $("#altaCita").click(function(){
+	$(".bloque:not('#form-alta-citas')").hide("normal");
+	if($("#form-alta-citas").size()==0){
+            $("<div>").appendTo("#contenido").load("html/altaCita.html",function(){$.getScript("js/altaCita.js");});
+	}
+	else{
+            $("#form-alta-citas").show("normal");
+	}
+    });
+    $("#editaCitas").click(function(){
+	$(".bloque:not('#form-edita-citas')").hide("normal");
+	if($("#form-edita-citas").size()==0){
+            $("<div>").appendTo("#contenido").load("html/editaCita.html",function(){$.getScript("js/editaCita.js");});
+	}
+	else{
+            $("#form-edita-citas").show("normal");
+	}
+    });
+    $("#listaCitas").click(function(){
+	$(".bloque:not('#listadoCitas')").hide("normal");
+	if($("#listadoCitas").size()==0){
+            $("<div>").appendTo("#contenido").load("html/listaCitas.html",function(){$.getScript("js/listaCitas.js");});
+	}
+	else{
+            $("#listadoCitas").show("normal");
+	}
+    });
+
     
+    $("#altaPago").click(function(){
+	$(".bloque:not('#form-alta-pagos')").hide("normal");
+	if($("#form-alta-pagos").size()==0){
+            $("<div>").appendTo("#contenido").load("html/altaPago.html",function(){$.getScript("js/altaPago.js");});
+	}
+	else{
+            $("#form-alta-pagos").show("normal");
+	}
+    });
+    $("#editaPagos").click(function(){
+	$(".bloque:not('#form-edita-pagos')").hide("normal");
+	if($("#form-edita-pagos").size()==0){
+            $("<div>").appendTo("#contenido").load("html/editaPago.html",function(){$.getScript("js/editaPago.js");});
+	}
+	else{
+            $("#form-edita-pagos").show("normal");
+	}
+    });
+    $("#listaPagos").click(function(){
+	$(".bloque:not('#listadoPagos')").hide("normal");
+	if($("#listadoPagos").size()==0){
+            $("<div>").appendTo("#contenido").load("html/listaPagos.html",function(){$.getScript("js/listaPagos.js");});
+	}
+	else{
+            $("#listadoPagos").show("normal");
+	}
+    });
+    
+    
+    $("#listaDentistas").click(function(){
+	$(".bloque:not('#listadoDentistas')").hide("normal");
+	if($("#listadoDentistas").size()==0){
+            $("<div>").appendTo("#contenido").load("html/listaDentistas.html",function(){$.getScript("js/listaDentistas.js");});
+	}
+	else{
+            $("#listadoDentistas").show("normal");
+	}
+    });
+}*/
+
+function cargarFormularios(){
     var oFormCliente=$("#btnAltaCliente");
     oFormCliente.on('click', validarCliente);
 }
-
-/*----MOSTRAR FORMULARIOS Y LISTADOS----*/
 function ocultarTodo(){
     $(".bloque").css("display","none");
-    
 }
-
-
 function mostrarFormAltaCliente(){
     ocultarTodo();
     $("#form-alta-clientes").css("display","block");
@@ -59,8 +142,6 @@ function mostrarListadoClientes(){
     $("#listadoClientes").css("display","block");
     pedirListaClientes();
 }
-
-
 function mostrarFormAltaCita(){
     ocultarTodo();
     $("#form-alta-citas").css("display","block");
@@ -74,8 +155,6 @@ function mostrarListadoCitas(){
     ocultarTodo();
     $("#listadoCitas").css("display","block");
 }
-
-
 function mostrarFormAltaPago(){
     ocultarTodo();
     $("#form-alta-pagos").css("display","block");
@@ -90,8 +169,6 @@ function mostrarListadoPagos(){
     $("#listadoPagos").css("display","block");
     
 }
-
-
 function mostrarListadoDentistas(){
     ocultarTodo();
     $("#listadoDentistas").css("display","block");
@@ -210,6 +287,20 @@ function pedirListaClientes(){
     });
 }
 
+/*----CITAS----*/
+function listarCitas(){
+    $("#listadoCitas").find(".indicador").show();
+    $.ajax({
+        url:"php/datoscitas.php",data:null,type:"GET",datatype:"html",success:function(oListaCitas){
+            $("listadoCitas").find(".indicador").hide();
+            var oTabla='<table class="table"><tr><th>ID</th><th>CLIENTE</th><th>DENTISTA</th><th>PAGO</th><th>FECHA CITA</th><th>PROCEDIMIENTO</th><th>DESCRIPCION</th><th>SALA</th><th>ATENDIDA</th></tr>';
+            oTabla+=oListaCitas;
+            $("#listadoCitas").find(".resultados").html(oTabla);
+        }
+    });
+}
+
+/*----DENTISTAS----*/
 function listarDentistas(){
     
     $("#listadoDentistas .indicador").show();
@@ -234,7 +325,7 @@ function listarDentistas(){
         
         $("#listadoDentistas .indicador").hide();
         
-        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>Núm. colegiado</th><th>Fecha alta</th></tr>";
+        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>NÚM. COLEGIADO</th><th>FECHA ALTA</th></tr>";
  
         texto +=oListaDentistas;
         
