@@ -1,10 +1,10 @@
 function listarCitas(){
     miXHR=new objetoXHR();
-	cargarAsyncCit("php/datoscitas.php");
+    cargarAsyncCit("php/datoscitas.php");
 }
 
 function cargarAsyncCit(url){
-    if (miXHR) {
+    if(miXHR){
         $("#listadoCitas").find(".indicador").html("<img src='images/ajax-loader.gif'/>");
         miXHR.open("GET",encodeURI(url),true);
         miXHR.onreadystatechange=estadoPeticionCit;
