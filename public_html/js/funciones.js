@@ -168,7 +168,7 @@ function mostrarFormEditaPago(){
 function mostrarListadoPagos(){
     ocultarTodo();
     $("#listadoPagos").css("display","block");
-    
+    pedirListaPagos();
 }
 function mostrarListadoDentistas(){
     ocultarTodo();
@@ -292,6 +292,13 @@ function pedirListaClientes(){
 function pedirListaCitas(){
     $.getScript('js/listaCitas.js',function(){
         listarCitas();
+    });
+}
+
+/*----PAGOS----*/
+function pedirListaPagos(){
+    $.getScript('js/listaPagos.js',function(){
+        listarPagos();
     });
 }
 
