@@ -33,14 +33,14 @@ $( "#dialog1" ).dialog({
 });
 
 $(".calendario").datepicker({altField : "#txtCalendarioAlternativo",
-  						altFormat : $.datepicker.ATOM,
-  						dateFormat : "yy'-'mm'-'dd",
-  						changeYear: true,
-  						changeMonth: true,
-  						defaultDate: "-1m",
-  						minDate: "-1y",
-  						showAnim: "fadeIn",
-						});
+                            altFormat : $.datepicker.ATOM,
+                            dateFormat : "yy'-'mm'-'dd",
+                            changeYear: true,
+                            changeMonth: true,
+                            defaultDate: "-1m",
+                            minDate: "-1y",
+                            showAnim: "fadeIn",
+                            });
 
 function funcionAceptar(id){
 	
@@ -60,9 +60,9 @@ function cargarFormularios(){
 	$("#altaCliente").click(function(){
 	$(".bloque:not('#form-alta-clientes')").hide("normal");
 	if($("#form-alta-clientes").size()==0){
-            $("<div>").appendTo("#formularios").load("html/altaCliente.html");
-			$("#btnAltaCliente").on('click', validarCliente);
-			$("#btnAceptarCliente").on('click', editarCliente);
+            $("<div>").appendTo("#formularios").load("html/altaCliente.html",function(){
+                $("#btnAltaCliente").on('click', validarCliente);
+            });
 	}
 	else{
             $("#form-alta-clientes").show("normal");
@@ -71,7 +71,10 @@ function cargarFormularios(){
     $("#editaClientes").click(function(){
 	$(".bloque:not('#form-edita-clientes')").hide("normal");
 	if($("#form-edita-clientes").size()==0){
-            $("<div>").appendTo("#formularios").load("html/editaCliente.html",function(){cargarSelectClientes();});
+            $("<div>").appendTo("#formularios").load("html/editaCliente.html",function(){
+                cargarSelectClientes();
+                $("#btnAceptarCliente").on('click', editarCliente);
+            });
 	}
 	else{
             $("#form-edita-clientes").show("normal");
@@ -92,7 +95,20 @@ function cargarFormularios(){
     $("#altaCita").click(function(){
 	$(".bloque:not('#form-alta-citas')").hide("normal");
 	if($("#form-alta-citas").size()==0){
-            $("<div>").appendTo("#formularios").load("html/altaCita.html",function(){cargarSelectClientes(); cargarSelectDentistas(); cargarSelectPagos();});
+            $("<div>").appendTo("#formularios").load("html/altaCita.html",function(){
+                cargarSelectClientes();
+                cargarSelectDentistas(); 
+                cargarSelectPagos();
+                $(".calendario").datepicker({altField : "#txtCalendarioAlternativo",
+                            altFormat : $.datepicker.ATOM,
+                            dateFormat : "yy'-'mm'-'dd",
+                            changeYear: true,
+                            changeMonth: true,
+                            defaultDate: "-1m",
+                            minDate: "-1y",
+                            showAnim: "fadeIn",
+                            });
+            });
 	}
 	else{
             $("#form-alta-citas").show("normal");
@@ -121,7 +137,18 @@ function cargarFormularios(){
     $("#altaPago").click(function(){
 	$(".bloque:not('#form-alta-pagos')").hide("normal");
 	if($("#form-alta-pagos").size()==0){
-            $("<div>").appendTo("#formularios").load("html/altaPago.html",function(){});
+            $("<div>").appendTo("#formularios").load("html/altaPago.html",function(){
+                cargarSelectClientes();
+                $(".calendario").datepicker({altField : "#txtCalendarioAlternativo",
+                            altFormat : $.datepicker.ATOM,
+                            dateFormat : "yy'-'mm'-'dd",
+                            changeYear: true,
+                            changeMonth: true,
+                            defaultDate: "-1m",
+                            minDate: "-1y",
+                            showAnim: "fadeIn",
+                            });
+            });
 	}
 	else{
             $("#form-alta-pagos").show("normal");
@@ -130,7 +157,9 @@ function cargarFormularios(){
     $("#editaPagos").click(function(){
 	$(".bloque:not('#form-edita-pagos')").hide("normal");
 	if($("#form-edita-pagos").size()==0){
-            $("<div>").appendTo("#formularios").load("html/editaPago.html",function(){});
+            $("<div>").appendTo("#formularios").load("html/editaPago.html",function(){ 
+                cargarSelectPagos();
+            });
 	}
 	else{
             $("#form-edita-pagos").show("normal");
@@ -336,22 +365,26 @@ function tratarGetDentistas(oArrayDentistas){
 
 function cargarSelectPagos(){
 	
-	$.get('php/getPagos.php',"rand="+Date.now(),tratarGetPagos,'xml');
+    $.get('php/getPagos.php',"rand="+Date.now(),tratarGetPagos,'xml');
 }
 
 function tratarGetPagos(xml){
 
-    $("#pagoCita").empty();
+    $(".selectPago").empty();
     
-    $('<option value="" >--seleccione un pago--</option>').appendTo("#pagoCita");
+    $('<option value="" >--seleccione un pago--</option>').appendTo(".selectPago");
 	
 	var pago=$(xml).find("pago");
-	
-
-	$('<option value="' + pago.find("id").text() + '" >' +  pago.find("fecha").text() + " - "+ pago.find("apellidos").text() + ", " + pago.find("nombre").text() + '</option>').appendTo("#pagoCita");
-				
-		
-	
+        
+        pago.each(function(){
+            
+            var id=$(this).find("id").text();
+            var fecha=$(this).find("fecha").text();
+            var apellidos=$(this).find("apellidos").text();
+            var nombre=$(this).find("nombre").text();
+            
+            $('<option value="' + id + '" >' + fecha + " - "+ apellidos + ", " + nombre + '</option>').appendTo(".selectPago");
+        });
 }
 
 function pedirListaClientes(){
