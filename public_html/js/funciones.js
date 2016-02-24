@@ -1,12 +1,3 @@
-/*----CALENDARIOS----*/
-/*window.addEventListener('load',calendario1,false);
-function calendario1(){Calendar.setup({inputField:"fechaCita",ifFormat:"%d / %m / %Y",button:"selector1"});}
-window.addEventListener('load',calendario2,false);
-function calendario2(){Calendar.setup({inputField:"fechaPago",ifFormat:"%d / %m / %Y",button:"selector2"});}*/
-
-
-/*$("#listaClientes").on('click',function(){ llamadaAjax();});*/
-
 var errores=[];
 $(window).load(function(){asignarEventos();});
 
@@ -408,7 +399,7 @@ function pedirListaDentistas(){
         
         $("#listadoDentistas .indicador").hide();
         
-        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>Núm. colegiado</th><th>Fecha alta</th></tr>";
+        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>NÚM. COLEGIADO</th><th>FECHA ALTA</th></tr>";
  
         texto +=oListaDentistas;
         
