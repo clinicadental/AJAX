@@ -27,34 +27,34 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" id="altaCliente" onClick="mostrarFormAltaCliente()">Añadir</a></li>
-                                <li><a href="#" id="editaClientes" onClick="mostrarFormEditaCliente()">Editar</a></li>
+                                <li><a href="#" id="altaCliente">Añadir</a></li>
+                                <li><a href="#" id="editaClientes">Editar</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" id="listaClientes" onClick="mostrarListadoClientes()">Listado</a></li>
+                                <li><a href="#" id="listaClientes">Listado</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Citas<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" id="altaCita" onClick="mostrarFormAltaCita()">Añadir</a></li>
-                                <li><a href="#" id="editaCitas" onClick="mostrarFormEditaCita()">Editar</a></li>
+                                <li><a href="#" id="altaCita">Añadir</a></li>
+                                <li><a href="#" id="editaCitas">Editar</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" id="listaCitas" onClick="mostrarListadoCitas()">Listado</a></li>
+                                <li><a href="#" id="listaCitas">Listado</a></li>
                             </ul>
                         </li>      
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pagos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" id="altaPago" onClick="mostrarFormAltaPago()">Añadir</a></li>
-                                <li><a href="#" id="editaPagos" onClick="mostrarFormEditaPago()">Editar</a></li>
+                                <li><a href="#" id="altaPago">Añadir</a></li>
+                                <li><a href="#" id="editaPagos">Editar</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" id="listaPagos" onClick="mostrarListadoPagos()">Listado</a></li>
+                                <li><a href="#" id="listaPagos">Listado</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dentistas<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" id="listaDentistas" onClick="mostrarListadoDentistas()">Listado</a></li>
+                                <li><a href="#" id="listaDentistas">Listado</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -63,8 +63,10 @@
         </nav>
         
         <main class="container" id="contenido">
+		
+			<div id="formularios"></div>
             <!--ALTA CLIENTES-->
-            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-clientes">
+            <!-- <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-clientes">
                 <h2>Alta cliente</h2>
                 <form method="post" class="form-horizontal" name="formClientes">
                     <div class="form-group" id="bloqueIdCliente">
@@ -89,10 +91,10 @@
                         <input type="reset" class="btn btn-warning" value="Cancelar"/>
                     </div>
                 </form>
-            </div>
+            </div> -->
             
             <!--ALTA CITAS-->
-            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-citas">
+            <!-- <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-citas">
                 <h2>Alta cita</h2>
                 <form method="post" class="form-horizontal" name="formCitas">
                     <div class="form-group" id="bloqueIdCita">
@@ -120,9 +122,7 @@
                     </div>
                     <div class="form-group" id="bloqueFechaCita">
                         <label class="control-label" for="fechaCita">Fecha</label>
-                        <input type="text" class="form-control" name="date" id="fechaCita" readonly/>
-                        <!--<img src="jscalendar-1.0/img.gif" alt="" id="selector1"/>
-                        <span>Pulsa sobre el icono del calendario.</span>-->
+                        <input type="text" class="form-control calendario" name="date" id="fechaCita" readonly/>
                     </div>
                     <div class="form-group" id="bloqueProcedimiento">
                         <label class="control-label" for="procedimientoCita">Procedimiento</label>
@@ -148,10 +148,10 @@
                         <input type="reset" class="btn btn-warning" value="Cancelar"/>
                     </div>
                 </form>
-            </div>
+            </div> -->
             
             <!--ALTA PAGO-->
-            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-pagos">
+            <!-- <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-pagos">
                 <h2>Alta pago</h2>
                 <form method="post" class="form-horizontal" name="formPagos">
                     <div class="form-group" id="bloqueIdPago">
@@ -167,9 +167,7 @@
                     </div>
                     <div class="form-group" id="bloqueFechaPago">
                         <label class="control-label" for="fechaPago">Fecha</label>
-                        <input type="text" class="form-control" name="date" id="fechaPago" readonly/>
-                        <!--<img src="jscalendar-1.0/img.gif" alt="" id="selector2"/>
-                        <span>Pulsa sobre el icono del calendario.</span>-->
+                        <input type="text" class="form-control calendario" name="date" id="fechaPago" readonly/>
                     </div>
                     <div class="form-group" id="bloqueImportePago">
                         <label class="control-label" for="importePago">Importe</label>
@@ -185,10 +183,10 @@
                         <input type="reset" class="btn btn-warning" value="Cancelar"/>
                     </div>
                 </form>
-            </div>
+            </div> -->
             
             <!--EDITA CLIENTE-->
-            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-clientes">
+            <!-- <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-clientes">
                 <h2>Editar cliente</h2>
                 <form method="post" class="form-horizontal" name="formEditaCliente">
                      <div class="form-group" id="bloqueEditaCliente">
@@ -214,10 +212,10 @@
                         <input type="reset" class="btn btn-warning" value="Cancelar"/>
                     </div>
                 </form>
-            </div>
+            </div> -->
             
             <!--EDITA CITA-->
-            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-citas">
+            <!-- <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-citas">
                 <h2>Editar cita</h2>
                 <form method="post" class="form-horizontal" name="formEditaCita">
                      <div class="form-group" id="bloqueEditaCita">
@@ -243,10 +241,10 @@
                         <input type="reset" class="btn btn-warning" value="Cancelar"/>
                     </div>
                 </form>
-            </div>
+            </div> -->
             
             <!--EDITA PAGOS-->
-            <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-pagos">
+            <!-- <div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-pagos">
                 <h2>Editar pago</h2>
                 <form method="post" class="form-horizontal" name="formEditaPago">
                     <div class="form-group" id="bloqueEditaPago">
@@ -272,10 +270,10 @@
                         <input type="reset" class="btn btn-warning" value="Cancelar"/>
                     </div>
                 </form>
-            </div>
+            </div> -->
         
             <!--LISTADO CLIENTES-->
-            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoClientes">
+            <!-- <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoClientes">
                 
                 <h2>Listado clientes</h2>
 
@@ -283,16 +281,24 @@
 
                 <div class="indicador"><img src='images/ajax-loader.gif'/></div>
                 
-            </div>
+            </div> -->
 
             <!--LISTADO CITAS-->
-            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoCitas"></div>
+            <!-- <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoCitas">
+				<h2>Listado de citas</h2>
+                <div class="resultados"></div>
+                <div class="indicador"><img src='images/ajax-loader.gif'/></div>
+			</div> -->
 
             <!--LISTADO PAGOS-->
-            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoPagos"></div>
+            <!-- <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoPagos">
+				<h2>Listado de pagos</h2>
+                <div class="resultados"></div>
+                <div class="indicador"><img src='images/ajax-loader.gif'/></div>
+			</div> -->
             
             <!--LISTADO DENTISTAS-->
-            <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoDentistas">
+            <!-- <div class="col-xs-6 col-xs-offset-3 bloque" id="listadoDentistas">
                 
                 <h2>Listado dentistas</h2>
 
@@ -300,18 +306,20 @@
                 
                 <div class="indicador"><img src='images/ajax-loader.gif'/></div>
                 
-            </div>
+            </div> -->
             
             <!--MENSAJES-->
             <div id="dialog">
-                <p></p>
+
             </div>
-            <div id="capaTransparente"></div>
+			
+			
 
 			<!--SCRIPTS-->
             <script src="jqueryui/external/jquery/jquery.js"></script>
             <script src="js/bootstrap.min.js"></script>
             <script src="jqueryui/jquery-ui.js"></script>
+			<script src="js/datepicker-es.js"></script>
             <script src="js/altaCliente.js"></script>
             <!--<script src="js/listaClientes.js"></script>-->
             <script type="text/javascript" src="js/objetos.js"></script>

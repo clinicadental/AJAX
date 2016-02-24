@@ -1,0 +1,28 @@
+<!--EDITA PAGOS-->
+<div class="col-xs-4 col-xs-offset-4 bloque" id="form-edita-pagos">
+    <h2>Editar pago</h2>
+    <form method="post" class="form-horizontal" name="formEditaPago">
+        <div class="form-group" id="bloqueEditaPago">
+            <label class="control-label" for="editaPago">Pago</label>
+            <select class="form-control" id="editaPago">
+                <option>--seleccione un pago--</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opcion" value="1" checked="checked">Editar
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opcion" value="2">Borrar
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAceptarPago"/>
+            <input type="reset" class="btn btn-warning" value="Cancelar"/>
+        </div>
+    </form>
+</div>

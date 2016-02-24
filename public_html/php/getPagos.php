@@ -1,6 +1,6 @@
 <?php
 // Cabecera para indicar que vamos a enviar datos JSON y que no haga caché de los datos.
-header('Content-Type: application/json');
+header('Content-Type: application/xml');
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); 
 
@@ -21,19 +21,22 @@ mysql_query("SET NAMES 'utf8'", $conexion);
 mysql_select_db($basedatos, $conexion) or die(mysql_error());
 
 // Consulta SQL para obtener los datos de los propietarios
-$sql = "SELECT * FROM CLIENTE; ";
+$sql = "SELECT P.ID, P.FECHAPAGO, C.NOMBRE, C.APELLIDOS FROM PAGO P,CLIENTE C WHERE C.ID=P.IDCLIENTE; ";
 
 $resultados = mysql_query($sql, $conexion) or die(mysql_error());
 
-$datos = Array();
+$datos = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><pagos>';
 
-while ($fila = mysql_fetch_array($resultados, MYSQL_ASSOC)) {
+while ($fila = mysql_fetch_array($resultados)) {
     // Almacenamos en un array cada una de las filas que vamos leyendo del recordset.
-    $datos[] = $fila;
+   $datos .= "<pago><id>".$fila[0]."</id><fecha>".$fila[1]."</fecha><nombre>".$fila[2]."</nombre><apellidos>".$fila[3]."</apellidos></pago>";
 }
 
+$datos.="</pagos>";
 // función de PHP que convierte a formato JSON el array.
-echo json_encode($datos); 
+//echo json_encode($datos);
+
+echo $datos; 
 
 mysql_close($conexion);
 

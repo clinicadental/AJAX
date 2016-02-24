@@ -1,0 +1,34 @@
+<!--ALTA PAGO-->
+<div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-pagos">
+    <h2>Alta pago</h2>
+    <form method="post" class="form-horizontal" name="formPagos">
+        <div class="form-group" id="bloqueIdPago">
+            <label class="control-label" for="idPago">ID</label>
+            <input type="text" class="form-control" id="idPago"/>
+            <span>Consta de una letra mayúscula y 5 números.</span>
+        </div>
+        <div class="form-group" id="bloqueClientePago">
+            <label class="control-label" for="clientePago">Cliente</label>
+            <select class="form-control selectCliente" id="clientePago">
+                <option>--seleccione un cliente--</option>
+            </select>
+        </div>
+        <div class="form-group" id="bloqueFechaPago">
+            <label class="control-label" for="fechaPago">Fecha</label>
+            <input type="text" class="form-control" name="date" id="fechaPago" readonly/>
+        </div>
+        <div class="form-group" id="bloqueImportePago">
+            <label class="control-label" for="importePago">Importe</label>
+            <input type="text" class="form-control" id="importePago"/>
+        </div>
+        <div class="form-group" id="bloquePagada">
+            <label class="checkbox-inline" for="citaPagada">Pagada
+                <input type="checkbox" id="citaPagada"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAltaPago"/>
+            <input type="reset" class="btn btn-warning" value="Cancelar"/>
+        </div>
+    </form>
+</div>

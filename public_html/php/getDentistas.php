@@ -21,11 +21,11 @@ mysql_query("SET NAMES 'utf8'", $conexion);
 mysql_select_db($basedatos, $conexion) or die(mysql_error());
 
 // Consulta SQL para obtener los datos de los propietarios
-$sql = "SELECT * FROM CLIENTE; ";
+$sql = "SELECT * FROM DENTISTA; ";
 
 $resultados = mysql_query($sql, $conexion) or die(mysql_error());
 
-$datos = Array();
+$datos = array();
 
 while ($fila = mysql_fetch_array($resultados, MYSQL_ASSOC)) {
     // Almacenamos en un array cada una de las filas que vamos leyendo del recordset.

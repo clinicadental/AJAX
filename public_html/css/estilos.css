@@ -45,19 +45,6 @@ footer a{
     color:#fff;
 }
 
-/*----DISPLAYS----*/
-#form-alta-clientes{display:none;}
-#form-alta-citas{display:none;}
-#form-alta-pagos{display:none;}
-
-#form-edita-clientes{display:none;}
-#form-edita-citas{display:none;}
-#form-edita-pagos{display:none;}
-
-#listadoClientes{display:none;}
-#listadoCitas{display:none;}
-#listadoPagos{display:none;}
-#listadoDentistas{display:none;}
 
 //#dialog{display:none;}
 
