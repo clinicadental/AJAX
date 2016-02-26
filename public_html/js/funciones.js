@@ -56,17 +56,16 @@ function asignarEventos(){
 /*----MOSTRAR FORMULARIOS Y LISTADOS----*/
 
 function cargarFormularios(){
-	
-	$("#altaCliente").click(function(){
-	$(".bloque:not('#form-alta-clientes')").hide("normal");
-	if($("#form-alta-clientes").size()==0){
+    $("#altaCliente").click(function(){
+        $(".bloque:not('#form-alta-clientes')").hide("normal");
+        if($("#form-alta-clientes").size()==0){
             $("<div>").appendTo("#formularios").load("html/altaCliente.html",function(){
                 $("#btnAltaCliente").on('click', validarCliente);
             });
-	}
-	else{
+        }
+        else{
             $("#form-alta-clientes").show("normal");
-	}
+        }
     });
     $("#editaClientes").click(function(){
 	$(".bloque:not('#form-edita-clientes')").hide("normal");
@@ -79,9 +78,8 @@ function cargarFormularios(){
 	else{
             $("#form-edita-clientes").show("normal");
 	}
-    });
-	
-	$("#listaClientes").click(function(){
+    });	
+    $("#listaClientes").click(function(){
 	$(".bloque:not('#listadoClientes')").hide("normal");
 	if($("#listadoClientes").size()==0){
             $("<div>").appendTo("#formularios").load("html/listaClientes.html",function(){pedirListaClientes();});
@@ -90,7 +88,7 @@ function cargarFormularios(){
             $("#listadoClientes").show("normal");
 	}
     });
-
+    
 
     $("#altaCita").click(function(){
 	$(".bloque:not('#form-alta-citas')").hide("normal");
@@ -233,7 +231,6 @@ function validarCamposTextoCliente(){
         errores.push("ID incorrecto");
     }
     else{
-        
         if($("#bloqueIdCliente").hasClass("has-error")){
            $("#bloqueIdCliente").removeClass("has-error"); 
         }
@@ -316,13 +313,11 @@ function getBorrarClientes(oArrayClientes){
 }
 
 function tratarRespuestaPOSTBorrarCliente(){
-
-	cargarSelectClientes();
+    cargarSelectClientes();
 }
 
 function cargarSelectClientes(){
-    
-	//$.ajax({cache:false});
+    //$.ajax({cache:false});
     $.get('php/getClientes.php',"rand="+Date.now(),tratarGetClientes,'json');
 }
 

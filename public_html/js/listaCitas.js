@@ -1,19 +1,19 @@
-function listarCitas(){
+function listarCitasas(){
     miXHR=new objetoXHR();
     cargarAsyncCit("php/datoscitas.php");
 }
 
-function cargarAsyncCit(url){
+function cargarAsyncCitas(url){
     if(miXHR){
         $("#listadoCitas").find(".indicador").html("<img src='images/ajax-loader.gif'/>");
         miXHR.open("GET",encodeURI(url),true);
-        miXHR.onreadystatechange=estadoPeticionCit;
+        miXHR.onreadystatechange=estadoPeticionCitas;
         miXHR.send(null);
         $("#listadoCitas").find(".indicador").show();
     }
 }
 
-function estadoPeticionCit(){
+function estadoPeticionCitas(){
     if(this.readyState==4&&this.status==200){
 	var resultados=JSON.parse(this.responseText);
 	if(resultados.length==0){
