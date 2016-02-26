@@ -260,7 +260,7 @@ function validarCamposTextoCliente(){
     }
     if(bValido){
         altaCliente(sId,sNombre,sApellidos,iTelefono);
-        //limpiaCampos();  
+        limpiaCampos();
     }
     return bValido;
 }
@@ -453,3 +453,13 @@ function pedirListaDentistas(){
         $("#listadoDentistas").html(texto);
     }
 }*/
+
+/*----LIMPIA CAMPOS----*/
+function limpiaCampos(){
+    $("input:text").val("");
+    $("textarea").val("");
+    $("option:nth-child(1)").prop("selected",true);
+    $("input:checkbox").prop("checked",false);
+    $("input:radio[value='1']").prop("checked",true);
+    $("input:radio[value='2']").prop("checked",false);
+}
