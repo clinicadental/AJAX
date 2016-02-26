@@ -43,19 +43,16 @@ $(".calendario").datepicker({altField : "#txtCalendarioAlternativo",
                             });
 
 function funcionAceptar(id){
-	
-	alert(id);
-
+    alert(id);
 }
 
 function asignarEventos(){
-    
-	cargarFormularios();
+    cargarFormularios();
 }
 
 /*----MOSTRAR FORMULARIOS Y LISTADOS----*/
-
 function cargarFormularios(){
+    /*CLIENTE*/
     $("#altaCliente").click(function(){
         $(".bloque:not('#form-alta-clientes')").hide("normal");
         if($("#form-alta-clientes").size()==0){
@@ -88,8 +85,7 @@ function cargarFormularios(){
             $("#listadoClientes").show("normal");
 	}
     });
-    
-
+    /*CITA*/
     $("#altaCita").click(function(){
 	$(".bloque:not('#form-alta-citas')").hide("normal");
 	if($("#form-alta-citas").size()==0){
@@ -130,8 +126,7 @@ function cargarFormularios(){
             $("#listadoCitas").show("normal");
 	}
     });
-
-    
+    /*PAGO*/
     $("#altaPago").click(function(){
 	$(".bloque:not('#form-alta-pagos')").hide("normal");
 	if($("#form-alta-pagos").size()==0){
@@ -172,8 +167,7 @@ function cargarFormularios(){
             $("#listadoPagos").show("normal");
 	}
     });
-    
-    
+    /*DENTISTAS*/
     $("#listaDentistas").click(function(){
 	$(".bloque:not('#listadoDentistas')").hide("normal");
 	if($("#listadoDentistas").size()==0){
@@ -185,9 +179,8 @@ function cargarFormularios(){
     });
 }
 
-
+/*----CLIENTES----*/
 function dialogo(texto,titulo){
-    
     $( "#dialog" ).dialog('option', 'title', titulo);
     $( "#dialog" ).html(texto);
     $( "#dialog" ).dialog( "open" );
@@ -383,8 +376,7 @@ function tratarGetPagos(xml){
 }
 
 function pedirListaClientes(){
-    
-    $.getScript('js/listaClientes.js', function() {
+    $.getScript('js/listaClientes.js',function(){
         listarClientes();
     });
 }
@@ -403,6 +395,7 @@ function pedirListaPagos(){
     });
 }
 
+/*----DENTISTAS----*/
 function pedirListaDentistas(){
     
     $("#listadoDentistas .indicador").show();
