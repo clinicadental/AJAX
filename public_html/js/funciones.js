@@ -159,6 +159,7 @@ function cargarFormularios(){
 	if($("#form-edita-pagos").size()==0){
             $("<div>").appendTo("#formularios").load("html/editaPago.html",function(){ 
                 cargarSelectPagos();
+                $("#btnAceptarPago").on('click',editarPago);
             });
 	}
 	else{
@@ -357,30 +358,6 @@ function tratarGetDentistas(oArrayDentistas){
 				
 		});
 	}
-}
-
-function cargarSelectPagos(){
-	
-    $.get('php/getPagos.php',"rand="+Date.now(),tratarGetPagos,'xml');
-}
-
-function tratarGetPagos(xml){
-
-    $(".selectPago").empty();
-    
-    $('<option value="" >--seleccione un pago--</option>').appendTo(".selectPago");
-	
-	var pago=$(xml).find("pago");
-        
-        pago.each(function(){
-            
-            var id=$(this).find("id").text();
-            var fecha=$(this).find("fecha").text();
-            var apellidos=$(this).find("apellidos").text();
-            var nombre=$(this).find("nombre").text();
-            
-            $('<option value="' + id + '" >' + fecha + " - "+ apellidos + ", " + nombre + '</option>').appendTo(".selectPago");
-        });
 }
 
 function pedirListaClientes(){
@@ -585,7 +562,6 @@ function validarCamposTextoPago(){
         }
     }
     if(bValido){
-        
         if(bPagada=="on"){
             bPagada=1;
         }
@@ -596,6 +572,63 @@ function validarCamposTextoPago(){
         limpiaCampos();
     }
     return bValido;
+}
+
+function editarPago(event){
+    event.preventDefault();
+    var opcion=$("#form-edita-pagos input[type='radio']:checked").val();
+    var oSelect=$("#editaPago option:selected");
+	
+    if(oSelect.index()==0){	
+	dialogo("Error: seleccione un pago","Editar pago");
+    }
+    if(opcion==1){	
+    }
+    else{		
+	/*$.get('php/getPagos.php',null,getBorrarPagos,'json');*/
+        $.get('php/getPagos.php',"rand="+Date.now(),getBorrarPagos,'xml');
+    }
+}
+
+function getBorrarPagos(xml){
+    var oArrayPagos=$(xml).find("pago");
+    var texto="";
+    var titulo="Borrar pago";
+    var codigo="";
+    
+    oArrayPagos.each(function(){
+        var id=$(this).find("id").text();
+        var fecha=$(this).find("fecha").text();
+        var apellidos=$(this).find("apellidos").text();
+        var nombre=$(this).find("nombre").text();
+        if($("#editaPago option:selected").val()==id){
+           codigo=id;
+           texto='<p>Pago borrado</p><p>ID: '+id+'</p><p>Fecha: '+fecha+'</p><p>Cliente: '+apellidos+', '+nombre+'</p>';
+        }
+    });
+    $.post("php/borrarPagos.php",{id:codigo},tratarRespuestaPOSTBorrarPago);	
+    dialogo(texto,titulo);
+}
+
+function tratarRespuestaPOSTBorrarPago(){
+    cargarSelectPagos();
+}
+
+function cargarSelectPagos(){
+    $.get('php/getPagos.php',"rand="+Date.now(),tratarGetPagos,'xml');
+}
+
+function tratarGetPagos(xml){
+    $(".selectPago").empty();
+    $('<option value="" >--seleccione un pago--</option>').appendTo(".selectPago");
+    var pago=$(xml).find("pago");    
+    pago.each(function(){
+        var id=$(this).find("id").text();
+        var fecha=$(this).find("fecha").text();
+        var apellidos=$(this).find("apellidos").text();
+        var nombre=$(this).find("nombre").text();
+        $('<option value="' + id + '" >' + fecha + " - "+ apellidos + ", " + nombre + '</option>').appendTo(".selectPago");
+    });
 }
 
 function pedirListaPagos(){
