@@ -20,7 +20,7 @@ function estadoPeticionCitas(){
             var texto="<h3>No hay resultados</h3>";
 	}
 	else{
-            texto="<table class='table'><tr><th>ID</th><th>CLIENTE</th><th>DENTISTA</th><th>IMPORTE</th><th>FECHA</th><th>PROCEDIMIENTO</th><th>DESCRIPCION</th><th>SALA</th><th>ATENDIDA</th></tr>";
+            texto="<table class='table'><tr><th>ID</th><th>CLIENTE</th><th>DENTISTA</th><th>IMPORTE</th><th>FECHA</th><th>PROCEDIMIENTO</th><th>DESCRIPCIÓN</th><th>SALA</th><th>ATENDIDA</th></tr>";
             for(var i=0;i<resultados.length;i++){
                 var objeto=resultados[i];
                 var atendida="";
