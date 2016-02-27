@@ -28,7 +28,7 @@ $( "#dialog1" ).dialog({
     width: 400,
     modal: true,
     hide: { effect: "drop", duration: 1000 },
-    show: { effect: "fold", duration: 500 },
+    show: { effect: "fold", duration: 500 }
     
 });
 
@@ -74,6 +74,7 @@ function cargarFormularios(){
 	}
 	else{
             $("#form-edita-clientes").show("normal");
+            cargarSelectClientes();
 	}
     });	
     $("#listaClientes").click(function(){
@@ -107,6 +108,9 @@ function cargarFormularios(){
 	}
 	else{
             $("#form-alta-citas").show("normal");
+            cargarSelectClientes();
+            cargarSelectDentistas(); 
+            cargarSelectPagos();
 	}
     });
     $("#editaCitas").click(function(){
@@ -147,6 +151,7 @@ function cargarFormularios(){
 	}
 	else{
             $("#form-alta-pagos").show("normal");
+            cargarSelectClientes();
 	}
     });
     $("#editaPagos").click(function(){
@@ -158,6 +163,7 @@ function cargarFormularios(){
 	}
 	else{
             $("#form-edita-pagos").show("normal");
+            cargarSelectPagos();
 	}
     });
     $("#listaPagos").click(function(){
@@ -283,7 +289,7 @@ function editarCliente(evento){
 	}
 	else{
 		
-		$.get('php/getClientes.php',null,getBorrarClientes,'json');
+            $.get('php/getClientes.php',null,getBorrarClientes,'json');
 	}
 }
 
