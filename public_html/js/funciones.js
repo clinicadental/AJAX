@@ -102,6 +102,7 @@ function cargarFormularios(){
                             minDate: "-1y",
                             showAnim: "fadeIn",
                             });
+                $("#btnAltaPago").on('click',validarCita);
             });
 	}
 	else{
@@ -426,7 +427,7 @@ function validarCamposTextoPago(){
            $("#bloqueIdPago").removeClass("has-error");
         }
     }
-    if(sIdCliente==null){
+    if(sIdCliente==""){
         $("#bloqueClientePago").addClass("has-error");
         bValido=false;
         errores.push("Cliente no seleccionado.");
