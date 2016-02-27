@@ -141,6 +141,7 @@ function cargarFormularios(){
                             minDate: "-1y",
                             showAnim: "fadeIn",
                             });
+                $("#btnAltaPago").on('click',validarPago);
             });
 	}
 	else{
@@ -202,7 +203,7 @@ function validarCliente(evento){
            sErrores+=errores[i]+" \n";
        }
        
-       dialogo("Errores: "+sErrores,"Alta cliente");
+       dialogo("Errores: "+sErrores,"Alta de Cliente");
        return false;
     } 
 }
@@ -213,7 +214,7 @@ function validarCamposTextoCliente(){
     var sApellidos=$('#apellidosCliente').val();
     var iTelefono=$('#telefonoCliente').val();
     var bValido=true;
-    var patronId=/(^[A-Z]{1})([0-9]{5}$)/;
+    var patronId=/^([A-Z]{1})([0-9]{5})$/;
     var patronCadena=/[a-zA-Z]+\s?/;
     var patronTelef=/^([0-9]{2,3})?(-|\s)?[0-9]{6,7}$/;
     errores=[];
@@ -389,6 +390,79 @@ function pedirListaCitas(){
 }
 
 /*----PAGOS----*/
+function validarPago(event){
+    var oEvent=event||window.event;  
+    oEvent.preventDefault();
+    if(validarCamposTextoPago()){
+        return true;
+    }
+    else{        
+        var sErrores="";       
+        for(var i=0;i<errores.length;i++){
+            sErrores+=errores[i]+" \n";
+        }
+        dialogo("Errores: "+sErrores,"Alta de Pago");
+        return false;
+    } 
+}
+
+function validarCamposTextoPago(){
+    var sId=$("#idPago").val();
+    var sIdCliente=$("#clientePago").val();
+    var dFecha=$("#fechaPago").val();
+    var fImporte=$("#importePago").val();
+    var bPagada=$("#citaPagada").val();
+    var bValido=true;
+    var regId=/^([A-Z]{1})([0-9]{5})$/;
+    var regImporte=/^([0-9]+([.]([0-9]{1,2}))?)$/;
+    
+    if(!regId.test(sId)){
+        $("#bloqueIdPago").addClass("has-error");
+        bValido=false;
+        errores.push("ID incorrecto.");
+    }
+    else{
+        if($("#bloqueIdPago").hasClass("has-error")){
+           $("#bloqueIdPago").removeClass("has-error");
+        }
+    }
+    if($("#clientePago").find("option:nth-child(1)").prop("selected",true)){
+        $("#bloqueClientePago").addClass("has-error");
+        bValido=false;
+        errores.push("Cliente no seleccionado.");
+    }
+    else{
+        if($("#bloqueClientePago").hasClass("has-error")){
+           $("#bloqueClientePago").removeClass("has-error");
+        }
+    }
+    if(dFecha==""){
+        $("#bloqueFechaPago").addClass("has-error");
+        bValido=false;
+        errores.push("Fecha no seleccionada.");
+    }
+    else{
+        if($("#bloqueFechaPago").hasClass("has-error")){
+           $("#bloqueFechaPago").removeClass("has-error");
+        }
+    }
+    if(!regImporte.test(fImporte)){
+        $("#bloqueImportePago").addClass("has-error");
+        bValido=false;
+        errores.push("Importe incorrecto.");
+    }
+    else{
+        if($("#bloqueImportePago").hasClass("has-error")){
+           $("#bloqueImportePago").removeClass("has-error");
+        }
+    }
+    if(bValido){
+        altaPago(sId,sIdCliente,dFecha,fImporte,bPagada);
+        limpiaCampos();
+    }
+    return bValido;
+}
+
 function pedirListaPagos(){
     $.getScript('js/listaPagos.js',function(){
         listarPagos();

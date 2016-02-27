@@ -76,12 +76,12 @@ function Cita(sId,sIdCliente,sIdDentista,sIdPago,dFechaCita,sProcedimiento,sDesc
 }
 
 /*----PAGO----*/
-function Pago(sId,sIdCliente,dFechaPago,fImporte,bPagado){
+function Pago(sId,sIdCliente,dFechaPago,fImporte,bPagada){
     this.id=sId;
     this.idcliente=sIdCliente;
     this.fechapago=dFechaPago;
     this.importe=fImporte;
-    this.pagado=bPagado;
+    this.pagada=bPagada;
 }
 
 /*----DENTISTA----*/
