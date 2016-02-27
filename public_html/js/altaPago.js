@@ -23,10 +23,10 @@ function respuestaAltaPago(){
     if(oAjaxAltaPago.readyState==4&&oAjaxAltaPago.status==200){
 	var oArrayRespuesta=JSON.parse(oAjaxAltaPago.responseText);
 	if(oArrayRespuesta[0]==true){
-            alert("Error: "+oArrayRespuesta[1]);
+            dialogo("Error: "+oArrayRespuesta[1],"Alta de Pago.");
 	} 
 	else{
-            alert("OK: "+oArrayRespuesta[1]);
+            dialogo("OK: "+oArrayRespuesta[1],"Alta de Pago");
 	}
     }
 }

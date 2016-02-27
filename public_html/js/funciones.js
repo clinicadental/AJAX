@@ -426,7 +426,7 @@ function validarCamposTextoPago(){
            $("#bloqueIdPago").removeClass("has-error");
         }
     }
-    if($("#clientePago").find("option:nth-child(1)").prop("selected",true)){
+    if(sIdCliente==0){
         $("#bloqueClientePago").addClass("has-error");
         bValido=false;
         errores.push("Cliente no seleccionado.");
