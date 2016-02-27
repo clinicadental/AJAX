@@ -1,27 +1,27 @@
 <!--ALTA CITAS-->
 <div class="col-xs-4 col-xs-offset-4 bloque" id="form-alta-citas">
     <h2>Alta cita</h2>
-    <form method="post" class="form-horizontal" name="formCitas">
+    <form method="post" class="form-horizontal" name="formCitas" id="formCita">
         <div class="form-group" id="bloqueIdCita">
             <label class="control-label" for="idCita">ID</label>
-            <input type="text" class="form-control" id="idCita"/>
+            <input type="text" class="form-control" id="idCita" name="id"/>
             <span>Consta de una letra mayúscula y 5 números.</span>
         </div>
         <div class="form-group" id="bloqueClienteCita">
             <label class="control-label" for="clienteCita">Cliente</label>
-            <select class="form-control selectCliente" id="clienteCita">
+            <select class="form-control selectCliente" id="clienteCita" name="cliente">
                 <option>--seleccione un cliente--</option>
             </select>
         </div>
         <div class="form-group" id="bloqueDentistaCita">
             <label class="control-label" for="dentistaCita">Dentista</label>
-            <select class="form-control" id="dentistaCita">
+            <select class="form-control" id="dentistaCita" name="dentista">
                 <option>--seleccione un dentista--</option>
             </select>
         </div>
         <div class="form-group" id="bloquePagoCita">
             <label class="control-label" for="pagoCita">Pago</label>
-            <select class="form-control selectPago" id="pagoCita">
+            <select class="form-control selectPago" id="pagoCita" name="pago">
                 <option>--seleccione un pago--</option>
             </select>
         </div>
@@ -31,26 +31,26 @@
         </div>
         <div class="form-group" id="bloqueProcedimiento">
             <label class="control-label" for="procedimientoCita">Procedimiento</label>
-            <input type="text" class="form-control" id="procedimientoCita"/>
+            <input type="text" class="form-control" id="procedimientoCita" name="procedimiento"/>
         </div>
         <div class="form-group" id="bloqueDescripcion">
             <label class="control-label" for="descripcionCita">Descripción</label>
-            <textarea class="form-control" id="descripcionCita"></textarea>
+            <textarea class="form-control" id="descripcionCita" name="descripcion"></textarea>
         </div>
         <div class="form-group" id="bloqueSalaCita">
             <label class="control-label" for="salaCita">Sala</label>
-            <select class="form-control" id="salaCita">
+            <select class="form-control" id="salaCita" name="sala">
                 <option>--seleccione una sala--</option>
-                <option>Sala 1</option>
-                <option>Sala 2</option>
-                <option>Sala 3</option>
-                <option>Sala 4</option>
-                <option>Sala 5</option>
+                <option value="Sala 1">Sala 1</option>
+                <option value="Sala 2">Sala 2</option>
+                <option value="Sala 3">Sala 3</option>
+                <option value="Sala 4">Sala 4</option>
+                <option value="Sala 5">Sala 5</option>
             </select>
         </div>
         <div class="form-group" id="bloqueAtendida">
             <label class="checkbox-inline" for="atendidaCita">Atendida
-                <input type="checkbox" id="atendidaCita"/>
+                <input type="checkbox" id="atendidaCita" name="atendida"/>
             </label>
         </div>
         <div class="form-group">

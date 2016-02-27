@@ -102,7 +102,7 @@ function cargarFormularios(){
                             minDate: "-1y",
                             showAnim: "fadeIn",
                             });
-                $("#btnAltaPago").on('click',validarCita);
+                $("#btnAltaCita").on('click',validarCita);
             });
 	}
 	else{
@@ -384,6 +384,127 @@ function pedirListaClientes(){
 }
 
 /*----CITAS----*/
+
+function validarCita(evento){
+    var oEvento = evento || window.event;  
+    oEvento.preventDefault();
+    if(validarCamposTextoCita()){
+       return true;
+    }
+    else{
+        
+       var sErrores="";
+       
+       for(var i=0;i<errores.length;i++){
+           
+           sErrores+=errores[i]+" \n";
+       }
+       
+       dialogo("Errores: "+sErrores,"Alta de cita");
+       return false;
+    } 
+}
+
+function validarCamposTextoCita(){
+    var sId=$('#idCita').val();
+    var oCliente=$('#clienteCita option:selected').val();
+    var oDentista=$('#dentistaCita option:selected').val();
+    var oPago=$('#pagoCita option:selected').val();
+    var dFecha=$('#fechaCita').val();
+    var sProcedimiento=$("#procedimientoCita").val();
+    var sDescripcion=$("#descripcionCita").val();
+    var oSala=$('#salaCita option:selected').val();
+    
+    var bValido=true;
+    var patronId=/^([A-Z]{1})([0-9]{5})$/;
+    var patronCadena=/[a-zA-Z]+\s?/;
+    errores=[];
+    
+    if(!patronId.test(sId)){
+        $("#bloqueIdCita").addClass("has-error");
+        bValido=false;
+        errores.push("ID incorrecto");
+    }
+    else{
+        if($("#bloqueIdCita").hasClass("has-error")){
+           $("#bloqueIdCita").removeClass("has-error"); 
+        }
+    }
+    if(oCliente==""){
+        $("#bloqueClienteCita").addClass("has-error");
+        bValido=false;
+        errores.push("Cliente no seleccionado.");
+    }
+    else{
+        if($("#bloqueClienteCita").hasClass("has-error")){
+           $("#bloqueClienteCita").removeClass("has-error");
+        }
+    }
+    if(oDentista==""){
+        $("#bloqueDentistaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Dentista no seleccionado.");
+    }
+    else{
+        if($("#bloqueDentistaCita").hasClass("has-error")){
+           $("#bloqueDentistaCita").removeClass("has-error");
+        }
+    }
+    if(oPago==""){
+        $("#bloquePagoCita").addClass("has-error");
+        bValido=false;
+        errores.push("Pago no seleccionado.");
+    }
+    else{
+        if($("#bloquePagoCita").hasClass("has-error")){
+           $("#bloquePagoCita").removeClass("has-error");
+        }
+    }
+    if(dFecha==""){
+        $("#bloqueFechaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Fecha no seleccionada.");
+    }
+    else{
+        if($("#bloqueFechaCita").hasClass("has-error")){
+           $("#bloqueFechaCita").removeClass("has-error");
+        }
+    }
+    if(!patronCadena.test(sProcedimiento)){
+        $("#bloqueProcedimiento").addClass("has-error");
+        bValido=false;
+        errores.push("Procedimiento incorrecto");
+    }
+    else{
+        if($("#bloqueProcedimiento").hasClass("has-error")){
+           $("#bloqueProcedimiento").removeClass("has-error"); 
+        }
+    }
+    if(oSala=="--seleccione una sala--"){
+        $("#bloqueSalaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Sala no seleccionada.");
+    }
+    else{
+        if($("#bloqueSalaCita").hasClass("has-error")){
+           $("#bloqueSalaCita").removeClass("has-error");
+        }
+    }
+    if(bValido){
+        var datos=$("#formCita").serialize();
+        alert(datos);
+        $.post("php/altaCita.php",datos,function(respuesta){tratarRespuestaAltaCita(respuesta);});
+        limpiaCampos();
+    }
+    return bValido;
+}
+
+function tratarRespuestaAltaCita(respuesta){
+    
+	
+    dialogo(respuesta,"Alta de cita.");
+	
+}
 function pedirListaCitas(){
     $.getScript('js/listaCitas.js',function(){
         listarCitas();
