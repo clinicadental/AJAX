@@ -18,4 +18,6 @@
 	$string='DELETE FROM pago WHERE id="'.$id.'"';
 	$query=mysql_query($string,$connection)or die(mysql_error());
 	mysql_close($connection);
+        
+        echo "[]";
 ?>
