@@ -408,7 +408,7 @@ function validarPago(event){
 
 function validarCamposTextoPago(){
     var sId=$("#idPago").val();
-    var sIdCliente=$("#clientePago").val();
+    var sIdCliente=$("#clientePago option:selected").val();
     var dFecha=$("#fechaPago").val();
     var fImporte=$("#importePago").val();
     var bPagada=$("#citaPagada").val();
@@ -426,7 +426,7 @@ function validarCamposTextoPago(){
            $("#bloqueIdPago").removeClass("has-error");
         }
     }
-    if(sIdCliente==0){
+    if(sIdCliente==null){
         $("#bloqueClientePago").addClass("has-error");
         bValido=false;
         errores.push("Cliente no seleccionado.");
@@ -457,6 +457,13 @@ function validarCamposTextoPago(){
         }
     }
     if(bValido){
+        
+        if(bPagada=="on"){
+            bPagada=1;
+        }
+        else{
+            bPagada=0;
+        }
         altaPago(sId,sIdCliente,dFecha,fImporte,bPagada);
         limpiaCampos();
     }

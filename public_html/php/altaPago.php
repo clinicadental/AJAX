@@ -9,7 +9,7 @@
     $user="root";
     $pass="";
     $datos=$_POST["datos"];
-    $pago=json_decode($pago);
+    $pago=json_decode($datos);
     /*CREAMOS LA CONEXIÓN AL SERVIDOR*/
     $connection=mysql_connect($server,$user,$pass)or die(mysql_error());
     mysql_query("SET NAMES 'utf8'",$connection);
@@ -26,7 +26,7 @@
     else{
         $message="Insertado con éxito.";
 	$error=false;
-	$insertstring='INSERT INTO pago(id,idcliente,fechapago,importe,pagado) VALUES("'.$pago->id.'","'.$pago->idcliente.'","'.$pago->fechapago.'","'.$pago->importe.'","'.$pago->pagado.'")';
+	$insertstring='INSERT INTO pago(id,idcliente,fechapago,importe,pagado) VALUES("'.$pago->id.'","'.$pago->idcliente.'","'.$pago->fechapago.'","'.$pago->importe.'","'.$pago->pagada.'")';
 	$insertquery=@mysql_query($insertstring,$connection)or die(mysql_error());	
     }
     $result=array($error,$message);
