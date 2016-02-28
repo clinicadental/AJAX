@@ -20,7 +20,7 @@ function estadoPeticionCitas(){
             var texto="<h3>No hay resultados</h3>";
 	}
 	else{
-            texto="<table class='table'><tr><th>ID</th><th>CLIENTE</th><th>DENTISTA</th><th>PAGO</th><th>FECHA CITA</th><th>PROCEDIMIENTO</th><th>DESCRIPCION</th><th>SALA</th><th>ATENDIDA</th></tr>";
+            texto="<table class='table'><tr><th>ID</th><th>CLIENTE</th><th>DENTISTA</th><th>IMPORTE</th><th>FECHA</th><th>PROCEDIMIENTO</th><th>DESCRIPCIÓN</th><th>SALA</th><th>ATENDIDA</th></tr>";
             for(var i=0;i<resultados.length;i++){
                 var objeto=resultados[i];
                 var atendida="";
@@ -30,7 +30,7 @@ function estadoPeticionCitas(){
                 else{
                     atendida="No";	
                 }
-                texto+="<tr><td>"+objeto.id+"</td><td>"+objeto.clinombre+" "+objeto.cliapellidos+"</td><td>"+objeto.denombre+" "+objeto.deapellidos+"</td><td>"+objeto.importe+'€'+"</td><td>"+objeto.fechacita+"</td><td>"+objeto.procedimiento+"</td><td>"+objeto.descripcion+"</td><td>"+objeto.sala+"</td><td>"+atendida+"</td></tr>";
+                texto+="<tr><td>"+objeto.id+"</td><td>"+objeto.cliapellidos+", "+objeto.clinombre+"</td><td>"+objeto.deapellidos+", "+objeto.denombre+"</td><td>"+objeto.importe+'€'+"</td><td>"+objeto.fechacita+"</td><td>"+objeto.procedimiento+"</td><td>"+objeto.descripcion+"</td><td>"+objeto.sala+"</td><td>"+atendida+"</td></tr>";
                 }
 	}
 	$("#listadoCitas").find(".indicador").hide();

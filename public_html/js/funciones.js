@@ -784,7 +784,7 @@ function pedirListaDentistas(){
         
         $("#listadoDentistas .indicador").hide();
         
-        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>NÚM. COLEGIADO</th><th>FECHA ALTA</th></tr>";
+        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>NÚM. COLEGIADO</th><th>FECHA DE ALTA</th></tr>";
  
         texto +=oListaDentistas;
         

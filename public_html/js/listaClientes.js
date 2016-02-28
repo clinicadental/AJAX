@@ -44,7 +44,7 @@ Piringalla","localidad":"Lugo","provincia":"Lugo","telefono":"982212010","fechav
     }
     else{
 
-        texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>Telefono</th></tr>";
+        texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>TELÉFONO</th></tr>";
         // Hacemos un bucle para recorrer todos los objetos literales recibidos en el array         resultados y mostrar su contenido.
         for(var i = 0; i < resultados.length; i++) {
                 objeto = resultados[i];
