@@ -286,7 +286,10 @@ function editarCliente(evento){
 	}
 	
 	if(opcion==1){
-	
+            $("#dialogoEditaCliente").load("html/formCliente.html",function(){
+                $("#dialogoEditaCliente").dialog();
+                $.get('php/getClientes.php',null,getEditarClientes,'json');
+            });
 	}
 	else{
 		
@@ -294,6 +297,125 @@ function editarCliente(evento){
 	}
 }
 
+function getEditarClientes(oArrayClientes){
+	
+    $.each(oArrayClientes, function( i , elemento){
+		
+        if($("#editaCliente option:selected").val()==elemento.id){
+			
+            $("#idEditaCliente").val(elemento.id).text(elemento.id).attr("readonly","true");
+            $("#nombreEditaCliente").val(elemento.nombre).text(elemento.nombre);
+            $("#apellidosEditaCliente").val(elemento.apellidos).text(elemento.apellidos);
+            $("#telefonoEditaCliente").val(elemento.telefono).text(elemento.telefono);
+        }   
+    });
+    
+    $("#btnAltaEditaCliente").on("click",validarEditarCliente);
+    $("#btnCancelarEditaCliente").on("click",function(){$("#dialogoEditaCliente").dialog("close");});
+}
+
+function validarEditarCliente(evento){
+    
+    var oEvento = evento || window.event;  
+    oEvento.preventDefault();
+    if(validarCamposEditarCliente()){
+       return true;
+    }
+    else{
+        
+       var sErrores="";
+       
+       for(var i=0;i<errores.length;i++){
+           
+           sErrores+=errores[i]+" \n";
+       }
+       
+       dialogo("Errores: "+sErrores,"Alta de Cliente");
+       return false;
+    } 
+}
+
+function validarCamposEditarCliente(){
+    
+    var sId=$('#idEditaCliente').val();
+    var sNombre=$('#nombreEditaCliente').val();
+    var sApellidos=$('#apellidosEditaCliente').val();
+    var iTelefono=$('#telefonoEditaCliente').val();
+    var bValido=true;
+
+    var patronCadena=/[a-zA-Z]+\s?/;
+    var patronTelef=/^([0-9]{2,3})?(-|\s)?[0-9]{6,7}$/;
+    errores=[];
+    
+   
+    if(!patronCadena.test(sNombre)){   
+        $("#bloqueNombreEditaCliente").addClass("has-error");
+        bValido=false;
+        errores.push("Nombre incorrecto");
+    }
+    else{
+        if($("#bloqueNombreEditaCliente").hasClass("has-error")){
+           $("#bloqueNombreEditaCliente").removeClass("has-error"); 
+        }
+    }
+    if(!patronCadena.test(sApellidos)){   
+        $("#bloqueApellidosEditaCliente").addClass("has-error");;
+        bValido=false;
+        errores.push("Apellidos incorrectos");
+    }
+    else{
+        if($("#bloqueApellidosEditaCliente").hasClass("has-error")){
+           $("#bloqueApellidosEditaCliente").removeClass("has-error"); 
+        }
+    }
+    if(!patronTelef.test(iTelefono)){   
+        $("#bloqueTelefonoEditaCliente").addClass("has-error");;
+        bValido=false;
+        errores.push("Teléfono incorrecto");
+    }
+    else{
+        if($("#bloqueTelefonoEditaCliente").hasClass("has-error")){
+           $("#bloqueTelefonoEditaCliente").removeClass("has-error"); 
+        }
+    }
+    if(bValido){
+        var oCliente=new Cliente(sId,sNombre,sApellidos,iTelefono);
+        actualizaCliente(oCliente);
+        limpiaCampos();
+    }
+    return bValido;
+}
+
+function actualizaCliente(oCliente){
+    
+    var sParametros= "datos=" + JSON.stringify(oCliente);
+
+    // Codifico para envio
+    sParametros = encodeURI(sParametros);
+    
+    $.ajax({
+
+    url : 'php/actualizaCliente.php',
+
+    data : sParametros,
+ 
+    // especifica si será una petición POST o GET
+    type : 'POST',
+ 
+    // el tipo de información que se espera de respuesta
+    dataType : 'text',
+ 
+    // código a ejecutar si la petición es satisfactoria;
+    // la respuesta es pasada como argumento a la función
+    success : function(oRespuesta){
+        
+        
+        dialogo("OK : " + oRespuesta,"Edita cliente");
+        
+    
+    }
+    });
+}
 function getBorrarClientes(oArrayClientes){
 	
 	var texto="";
@@ -669,17 +791,6 @@ function pedirListaDentistas(){
         $("#listadoDentistas .resultados").html(texto);
     }
  
-    // código a ejecutar si la petición falla;
-    // son pasados como argumentos a la función
-    // el objeto de la petición en crudo y código de estatus de la petición
-    /*error : function(xhr, status) {
-        alert('Disculpe, existió un problema');
-    },
- 
-    // código a ejecutar sin importar si la petición falló o no
-    complete : function(xhr, status) {
-        alert('Petición realizada');
-    }*/
 });
 }
 
