@@ -643,6 +643,7 @@ function pedirListaCitas(){
 }
 
 /*----PAGOS----*/
+/*----AÑADIR PAGOS----*/
 function validarPago(event){
     var oEvent=event||window.event;  
     oEvent.preventDefault();
@@ -722,6 +723,7 @@ function validarCamposTextoPago(){
     return bValido;
 }
 
+/*----EDITAR PAGOS----*/
 function editarPago(event){
     event.preventDefault();
     var opcion=$("#form-edita-pagos input[type='radio']:checked").val();
@@ -730,14 +732,133 @@ function editarPago(event){
     if(oSelect.index()==0){	
 	dialogo("Error: seleccione un pago","Editar pago");
     }
-    if(opcion==1){	
+    if(opcion==1){
+        $("#dialogoEditaPago").load("html/formPago.html",function(){
+            $("#dialogoEditaPago").dialog();
+            $.get('php/getPagos.php',null,getEditarPagos,'json');
+        });
     }
     else{		
 	/*$.get('php/getPagos.php',null,getBorrarPagos,'json');*/
         $.get('php/getPagos.php',"rand="+Date.now(),getBorrarPagos,'xml');
     }
 }
+function getEditarPagos(oArrayPagos){
+    $.each(oArrayPagos,function(i,elemento){		
+        if($("#editaPago option:selected").val()==elemento.id){
+            $("#idEditaPago").val(elemento.id).text(elemento.id).attr("readonly","true");
+            $("#clienteEditaPago").val(elemento.idcliente).text(elemento.idcliente);
+            $("#fechaEditaPago").val(elemento.fechapago).text(elemento.fechapago);
+            $("#importeEditaPago").val(elemento.importe).text(elemento.importe);
+            $("#citaEditaPagada").val(elemento.pagada).text(elemento.pagada);
+        }   
+    });
+    $("#btnAltaEditaPago").on("click",validarEditarPago);
+    $("#btnCancelarEditaPago").on("click",function(){$("#dialogoEditaPago").dialog("close");});
+}
 
+function validarEditarPago(evento){
+    var oEvento=evento||window.event;  
+    oEvento.preventDefault();
+    if(validarCamposEditarPago()){
+        $("#dialogoEditaPago").dialog("close");
+        return true;
+    }
+    else{       
+        var sErrores="";
+        for(var i=0;i<errores.length;i++){
+           sErrores+=errores[i]+" \n";
+        }
+        dialogo("Errores: "+sErrores,"Alta de Pago");
+        return false;
+    } 
+}
+
+function validarCamposEditarPago(){
+    var sId=$("#idEditaPago").val();
+    var sIdCliente=$("#clienteEditaPago option:selected").val();
+    var dFecha=$("#fechaEditaPago").val();
+    var fImporte=$("#importeEditaPago").val();
+    var bPagada=$("#citaEditaPagada").val();
+    var bValido=true;
+    var regId=/^([A-Z]{1})([0-9]{5})$/;
+    var regImporte=/^([0-9]+([.]([0-9]{1,2}))?)$/;
+    
+    if(!regId.test(sId)){
+        $("#bloqueEditaIdPago").addClass("has-error");
+        bValido=false;
+        errores.push("ID incorrecto.");
+    }
+    else{
+        if($("#bloqueEditaIdPago").hasClass("has-error")){
+           $("#bloqueEditaIdPago").removeClass("has-error");
+        }
+    }
+    if(sIdCliente==""){
+        $("#bloqueEditaClientePago").addClass("has-error");
+        bValido=false;
+        errores.push("Pago no seleccionado.");
+    }
+    else{
+        if($("#bloqueEditaClientePago").hasClass("has-error")){
+           $("#bloqueEditaClientePago").removeClass("has-error");
+        }
+    }
+    if(dFecha==""){
+        $("#bloqueEditaFechaPago").addClass("has-error");
+        bValido=false;
+        errores.push("Fecha no seleccionada.");
+    }
+    else{
+        if($("#bloqueEditaFechaPago").hasClass("has-error")){
+           $("#bloqueEditaFechaPago").removeClass("has-error");
+        }
+    }
+    if(!regImporte.test(fImporte)){
+        $("#bloqueEditaImportePago").addClass("has-error");
+        bValido=false;
+        errores.push("Importe incorrecto.");
+    }
+    else{
+        if($("#bloqueEditaImportePago").hasClass("has-error")){
+           $("#bloqueEditaImportePago").removeClass("has-error");
+        }
+    }
+    if(bValido){
+        if(bPagada=="on"){
+            bPagada=1;
+        }
+        else{
+            bPagada=0;
+        }
+        var oPago=new Pago(sId,sIdCliente,dFecha,fImporte,bPagada);
+        actualizaCliente(oPago);
+        limpiaCampos()
+    }
+    return bValido;
+}
+
+function actualizaPago(oPago){
+    var sParametros="datos="+JSON.stringify(oPago);
+    // Codifico para envio
+    sParametros=encodeURI(sParametros);
+    $.ajax({
+    url:'php/actualizaPago.php',
+    data:sParametros,
+    // especifica si será una petición POST o GET
+    type:'POST',
+    // el tipo de información que se espera de respuesta
+    dataType:'text',
+    // código a ejecutar si la petición es satisfactoria;
+    // la respuesta es pasada como argumento a la función
+    success : function(oRespuesta){
+        dialogo("OK : " + oRespuesta,"Edita pago");
+    },
+    complete: cargarSelectPagos
+    });
+}
+
+/*----BORRAR PAGOS----*/
 function getBorrarPagos(xml){
     var oArrayPagos=$(xml).find("pago");
     var texto="";

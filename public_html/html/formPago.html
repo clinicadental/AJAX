@@ -1,0 +1,33 @@
+<!--EDITA PAGO-->
+<div class="col-xs-12" id="form-alta-edita-pagos">
+    <form method="post" class="form-horizontal" name="formEditaPagos">
+        <div class="form-group" id="bloqueIdEditaPago">
+            <label class="control-label" for="idEditaPago">ID</label>
+            <input type="text" class="form-control" id="idEditaPago"/>
+            <span>Consta de una letra mayúscula y 5 números.</span>
+        </div>
+        <div class="form-group" id="bloqueEditaClientePago">
+            <label class="control-label" for="clienteEditaPago">Cliente</label>
+            <select class="form-control selectCliente" id="clienteEditaPago">
+                <option>--seleccione un cliente--</option>
+            </select>
+        </div>
+        <div class="form-group" id="bloqueEditaFechaPago">
+            <label class="control-label calendario" for="fechaEditaPago">Fecha</label>
+            <input type="text" class="form-control calendario" name="date" id="fechaEditaPago" readonly/>
+        </div>
+        <div class="form-group" id="bloqueEditaImportePago">
+            <label class="control-label" for="importeEditaPago">Importe</label>
+            <input type="text" class="form-control" id="importeEditaPago"/>
+        </div>
+        <div class="form-group" id="bloqueEditaPagada">
+            <label class="checkbox-inline" for="citaEditaPagada">Cita pagada
+                <input type="checkbox" id="citaEditaPagada"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAltaEditaPago"/>
+            <input type="reset" class="btn btn-warning" value="Cancelar" id="btnCancelarEditaPago"/>
+        </div>
+    </form>
+</div>
