@@ -284,17 +284,19 @@ function editarCliente(evento){
 		
 		dialogo("Error: seleccione un cliente","Edita cliente");
 	}
-	
-	if(opcion==1){
+	else{
+            
+            if(opcion==1){
             $("#dialogoEditaCliente").load("html/formCliente.html",function(){
                 $("#dialogoEditaCliente").dialog();
                 $.get('php/getClientes.php',null,getEditarClientes,'json');
             });
-	}
-	else{
-		
-            $.get('php/getClientes.php',null,getBorrarClientes,'json');
-	}
+            }
+            else{
+
+                $.get('php/getClientes.php',null,getBorrarClientes,'json');
+            }
+        }
 }
 
 function getEditarClientes(oArrayClientes){
