@@ -117,9 +117,11 @@ function cargarFormularios(){
 	$(".bloque:not('#form-edita-citas')").hide("normal");
 	if($("#form-edita-citas").size()==0){
             $("<div>").appendTo("#formularios").load("html/editaCita.html",function(){});
+            cargarSelectCitas();
 	}
 	else{
             $("#form-edita-citas").show("normal");
+            cargarSelectCitas();
 	}
     });
     $("#listaCitas").click(function(){
@@ -469,7 +471,7 @@ function tratarGetClientes(oArrayClientes){
 
 function cargarSelectDentistas(){
 	
-	$.get('php/getDentistas.php',"rand="+Date.now(),tratarGetDentistas,'json');
+    $.get('php/getDentistas.php',"rand="+Date.now(),tratarGetDentistas,'json');
 }
 
 function tratarGetDentistas(oArrayDentistas){
@@ -615,6 +617,24 @@ function tratarRespuestaAltaCita(respuesta){
 	
     dialogo(respuesta,"Alta de cita.");
 	
+}
+
+function cargarSelectCitas(){
+    //$.ajax({cache:false});
+    $.get('php/getCitas.php',"rand="+Date.now(),tratarGetCitas,'xml');
+}
+
+function tratarGetCitas(xml){
+    $("#editaCita").empty();
+    $('<option value="" >--seleccione una cita--</option>').appendTo("#editaCita");
+    var cita=$(xml).find("cita");    
+    cita.each(function(){
+        var id=$(this).find("id").text();
+        var fecha=$(this).find("fecha").text();
+        var apellidos=$(this).find("apellidos").text();
+        var nombre=$(this).find("nombre").text();
+        $('<option value="' + id + '" >' + fecha + " - "+ apellidos + ", " + nombre + '</option>').appendTo("#editaCita");
+    });
 }
 function pedirListaCitas(){
     $.getScript('js/listaCitas.js',function(){
@@ -800,18 +820,6 @@ function pedirListaDentistas(){
 });
 }
 
-/*function tratarListaDentistas(oListaDentistas){
-    
-        
-        var texto = "<table class='table'><tr><th>ID</th><th>NOMBRE</th><th>APELLIDOS</th><th>Núm. colegiado</th><th>Fecha alta</th></tr>";
-        // Hacemos un bucle para recorrer todos los objetos literales recibidos en el array         resultados y mostrar su contenido.
- 
-            texto +=oArrayDentistas;
-        
-        
-        $("#listadoDentistas").html(texto);
-    }
-}*/
 
 /*----LIMPIA CAMPOS----*/
 function limpiaCampos(){
