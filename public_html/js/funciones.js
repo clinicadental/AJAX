@@ -116,8 +116,12 @@ function cargarFormularios(){
     $("#editaCitas").click(function(){
 	$(".bloque:not('#form-edita-citas')").hide("normal");
 	if($("#form-edita-citas").size()==0){
-            $("<div>").appendTo("#formularios").load("html/editaCita.html",function(){});
-            cargarSelectCitas();
+            $("<div>").appendTo("#formularios").load("html/editaCita.html",function(){
+                
+                cargarSelectCitas();
+                $("#btnAceptarCita").on('click',editarCita);
+            });
+            
 	}
 	else{
             $("#form-edita-citas").show("normal");
@@ -617,6 +621,32 @@ function tratarRespuestaAltaCita(respuesta){
 	
     dialogo(respuesta,"Alta de cita.");
 	
+}
+
+function editarCita(evento){
+	
+        evento.preventDefault();
+        
+	var opcion=$("#form-edita-citas input[type='radio']:checked").val();
+	var oSelect=$("#editaCita option:selected");
+	
+	if(oSelect.index()==0){
+		
+		dialogo("Error: seleccione una cita","Edita cita");
+	}
+	else{
+            
+            if(opcion==1){
+            $("#dialogoEditaCita").load("html/formCita.html",function(){
+                $("#dialogoEditaCita").dialog();
+                $.get('php/getCitas.php',null,getEditarCitas,'json');
+            });
+            }
+            else{
+
+                $.get('php/getCitas.php',null,getBorrarCitas,'json');
+            }
+        }
 }
 
 function cargarSelectCitas(){

@@ -1,0 +1,61 @@
+<!--ALTA CITAS-->
+<div class="col-xs-12" id="form-alta-edita-citas">
+    <h2>Alta cita</h2>
+    <form method="post" class="form-horizontal" name="formCitas" id="formEditaCita">
+        <div class="form-group" id="bloqueIdEditaCita">
+            <label class="control-label" for="idEditaCita">ID</label>
+            <input type="text" class="form-control" id="idEditaCita" name="id"/>
+            <span>Consta de una letra mayúscula y 5 números.</span>
+        </div>
+        <div class="form-group" id="bloqueClienteEditaCita">
+            <label class="control-label" for="clienteEditaCita">Cliente</label>
+            <select class="form-control selectCliente" id="clienteEditaCita" name="cliente">
+                <option>--seleccione un cliente--</option>
+            </select>
+        </div>
+        <div class="form-group" id="bloqueDentistaEditaCita">
+            <label class="control-label" for="dentistaEditaCita">Dentista</label>
+            <select class="form-control" id="dentistaEditaCita" name="dentista">
+                <option>--seleccione un dentista--</option>
+            </select>
+        </div>
+        <div class="form-group" id="bloquePagoEditaCita">
+            <label class="control-label" for="pagoEditaCita">Pago</label>
+            <select class="form-control selectPago" id="pagoEditaCita" name="pago">
+                <option>--seleccione un pago--</option>
+            </select>
+        </div>
+        <div class="form-group" id="bloqueFechaEditaCita">
+            <label class="control-label" for="fechaEditaCita">Fecha</label>
+            <input type="text" class="form-control calendario" name="date" id="fechaEditaCita" readonly/>
+        </div>
+        <div class="form-group" id="bloqueProcedimientoEdita">
+            <label class="control-label" for="procedimientoEditaCita">Procedimiento</label>
+            <input type="text" class="form-control" id="procedimientoEditaCita" name="procedimiento"/>
+        </div>
+        <div class="form-group" id="bloqueDescripcionEdita">
+            <label class="control-label" for="descripcionEditaCita">Descripción</label>
+            <textarea class="form-control" id="descripcionEditaCita" name="descripcion"></textarea>
+        </div>
+        <div class="form-group" id="bloqueSalaEditaCita">
+            <label class="control-label" for="salaEditaCita">Sala</label>
+            <select class="form-control" id="salaEditaCita" name="sala">
+                <option>--seleccione una sala--</option>
+                <option value="1">Sala 1</option>
+                <option value="2">Sala 2</option>
+                <option value="3">Sala 3</option>
+                <option value="4">Sala 4</option>
+                <option value="5">Sala 5</option>
+            </select>
+        </div>
+        <div class="form-group" id="bloqueAtendidaEdita">
+            <label class="checkbox-inline" for="atendidaEditaCita">Atendida
+                <input type="checkbox" id="atendidaEditaCita" name="atendida"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAltaEditaCita"/>
+            <input type="reset" class="btn btn-warning" value="Cancelar"/>
+        </div>
+    </form>
+</div>
