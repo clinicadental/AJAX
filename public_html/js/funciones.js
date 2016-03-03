@@ -319,6 +319,8 @@ function validarEditarCliente(evento){
     var oEvento = evento || window.event;  
     oEvento.preventDefault();
     if(validarCamposEditarCliente()){
+       $("#dialogoEditaCliente").dialog("close");
+       
        return true;
     }
     else{
@@ -413,7 +415,9 @@ function actualizaCliente(oCliente){
         dialogo("OK : " + oRespuesta,"Edita cliente");
         
     
-    }
+    },
+    
+    complete: cargarSelectClientes
     });
 }
 function getBorrarClientes(oArrayClientes){
