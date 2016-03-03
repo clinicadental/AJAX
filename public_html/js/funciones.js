@@ -480,15 +480,15 @@ function cargarSelectDentistas(){
 
 function tratarGetDentistas(oArrayDentistas){
 
-    $("#dentistaCita").empty();
+    $(".selectDentista").empty();
     
-    $('<option value="" >--seleccione un dentista--</option>').appendTo("#dentistaCita");
+    $('<option value="" >--seleccione un dentista--</option>').appendTo(".selectDentista");
 	
 	if(typeof oArrayDentistas != "undefined"){
 	
 		$.each(oArrayDentistas, function( i , elemento){
 
-			$('<option value="' + elemento.id + '" >' +  elemento.apellidos+", "+ elemento.nombre + '</option>').appendTo("#dentistaCita");
+			$('<option value="' + elemento.id + '" >' +  elemento.apellidos+", "+ elemento.nombre + '</option>').appendTo(".selectDentista");
 				
 		});
 	}
@@ -609,7 +609,6 @@ function validarCamposTextoCita(){
     }
     if(bValido){
         var datos=$("#formCita").serialize();
-        alert(datos);
         $.post("php/altaCita.php",datos,function(respuesta){tratarRespuestaAltaCita(respuesta);});
         limpiaCampos();
     }
@@ -629,6 +628,7 @@ function editarCita(evento){
         
 	var opcion=$("#form-edita-citas input[type='radio']:checked").val();
 	var oSelect=$("#editaCita option:selected");
+        var codigo=oSelect.val();
 	
 	if(oSelect.index()==0){
 		
@@ -637,16 +637,190 @@ function editarCita(evento){
 	else{
             
             if(opcion==1){
-            $("#dialogoEditaCita").load("html/formCita.html",function(){
-                $("#dialogoEditaCita").dialog();
-                $.get('php/getCitas.php',null,getEditarCitas,'json');
-            });
+                $("#dialogoEditaCita").load("html/formCita.html",function(){
+                    cargarSelectClientes();
+                    cargarSelectDentistas();
+                    cargarSelectPagos();
+                    $("#dialogoEditaCita").dialog();
+                    $.post('php/getEditarCitas.php',{id:codigo},getEditarCitas,'html');
+                });
             }
             else{
 
-                $.get('php/getCitas.php',null,getBorrarCitas,'json');
+                $.post('php/getBorrarCitas.php',{id:codigo},getBorrarCitas,'xml');
             }
         }
+}
+
+function getEditarCitas(textoHTML){
+    
+    $(".calendario").datepicker({altField : "#txtCalendarioAlternativo",
+                            altFormat : $.datepicker.ATOM,
+                            dateFormat : "yy'-'mm'-'dd",
+                            changeYear: true,
+                            changeMonth: true,
+                            defaultDate: "-1m",
+                            minDate: "-1y",
+                            showAnim: "fadeIn",
+                            });
+    
+    var id=$(textoHTML).find("#id").text();
+    var idcliente=$(textoHTML).find("#idcliente").text();
+    var iddentista=$(textoHTML).find("#iddentista").text();
+    var idpago=$(textoHTML).find("#idpago").text();
+    var proc=$(textoHTML).find("#proc").text();
+    var desc=$(textoHTML).find("#desc").text();
+    var atendida=$(textoHTML).find("#atendida").text();
+    var sala=$(textoHTML).find("#sala").text();
+    var fecha=$(textoHTML).find("#fecha").text();
+    
+    $("#idEditaCita").val(id).attr("readonly","true");
+    $("#clienteEditaCita").val(idcliente);
+    $("#dentistaEditaCita").val(iddentista);
+    $("#pagoEditaCita").val(idpago);
+    $("#fechaEditaCita").val(fecha);
+    $("#procedimientoEditaCita").val(proc);
+    $("#descripcionEditaCita").val(desc);
+    $("#salaEditaCita").val(sala);
+    
+    if(atendida==1){
+        
+        $("#atendidaEditaCita").attr("checked","true");
+    } 
+    
+    $("#btnAltaEditaCita").on("click",validarEditarCita);
+    $("#btnCancelarEditaCita").on("click",function(){$("#dialogoEditaCita").dialog("close");});
+}
+
+function validarEditarCita(evento){
+    
+    var oEvento = evento || window.event;  
+    oEvento.preventDefault();
+    if(validarCamposEditarCita()){
+       $("#dialogoEditaCita").dialog("close");
+       
+       return true;
+    }
+    else{
+        
+       var sErrores="";
+       
+       for(var i=0;i<errores.length;i++){
+           
+           sErrores+=errores[i]+" \n";
+       }
+       
+       dialogo("Errores: "+sErrores,"Edita cita");
+       return false;
+    } 
+}
+
+function validarCamposEditarCita(){
+ 
+    var oCliente=$('#clienteEditaCita option:selected').val();
+    var oDentista=$('#dentistaEditaCita option:selected').val();
+    var oPago=$('#pagoEditaCita option:selected').val();
+    var dFecha=$('#fechaEditaCita').val();
+    var sProcedimiento=$("#procedimientoEditaCita").val();
+    var oSala=$('#salaEditaCita option:selected').val();
+    
+    var bValido=true;
+    var patronCadena=/[a-zA-Z]+\s?/;
+    errores=[];
+    
+    if(oCliente==""){
+        $("#bloqueClienteEditaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Cliente no seleccionado.");
+    }
+    else{
+        if($("#bloqueClienteEditaCita").hasClass("has-error")){
+           $("#bloqueClienteEditaCita").removeClass("has-error");
+        }
+    }
+    if(oDentista==""){
+        $("#bloqueDentistaEditaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Dentista no seleccionado.");
+    }
+    else{
+        if($("#bloqueDentistaEditaCita").hasClass("has-error")){
+           $("#bloqueDentistaEditaCita").removeClass("has-error");
+        }
+    }
+    if(oPago==""){
+        $("#bloquePagoEditaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Pago no seleccionado.");
+    }
+    else{
+        if($("#bloquePagoEditaCita").hasClass("has-error")){
+           $("#bloquePagoEditaCita").removeClass("has-error");
+        }
+    }
+    if(dFecha==""){
+        $("#bloqueFechaEditaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Fecha no seleccionada.");
+    }
+    else{
+        if($("#bloqueFechaEditaCita").hasClass("has-error")){
+           $("#bloqueFechaEditaCita").removeClass("has-error");
+        }
+    }
+    if(!patronCadena.test(sProcedimiento)){
+        $("#bloqueProcedimientoEdita").addClass("has-error");
+        bValido=false;
+        errores.push("Procedimiento incorrecto");
+    }
+    else{
+        if($("#bloqueProcedimientoEdita").hasClass("has-error")){
+           $("#bloqueProcedimientoEdita").removeClass("has-error"); 
+        }
+    }
+    if(oSala=="--seleccione una sala--"){
+        $("#bloqueSalaEditaCita").addClass("has-error");
+        bValido=false;
+        errores.push("Sala no seleccionada.");
+    }
+    else{
+        if($("#bloqueSalaEditaCita").hasClass("has-error")){
+           $("#bloqueSalaEditaCita").removeClass("has-error");
+        }
+    }
+    if(bValido){
+        var datos=$("#formEditaCita").serialize();
+        $.post("php/actualizaCita.php",datos,function(oRespuesta){dialogo("OK : " + oRespuesta,"Edita cita");});
+        limpiaCampos();
+    }
+    return bValido;
+}
+
+function getBorrarCitas(xml){
+    var oCita=$(xml).find("cita");
+    var texto="";
+    var titulo="Borrar cita";
+    var codigo;
+    
+        var id=oCita.find("id").text();
+        var apellidoscliente=oCita.find("apellidoscliente").text();
+        var nombrecliente=oCita.find("nombrecliente").text();
+        var apellidosdent=oCita.find("apellidosdent").text();
+        var nombredent=oCita.find("nombredent").text();
+        var idpago=oCita.find("idpago").text();
+        var procedimiento=oCita.find("procedimiento").text();
+        var sala=oCita.find("sala").text();
+        var fecha=oCita.find("fecha").text();
+
+        texto='<p>Cita borrada</p><p>ID: '+id+'</p><p>Cliente: '+apellidoscliente+', '+nombrecliente+'</p><p>Dentista: '+apellidosdent+', '+nombredent+'</p><p>Pago: '+idpago+'</p><p>Procedimiento: '+procedimiento+'<p><p>Sala: '+sala+'<p><p>Fecha: '+fecha+'<p>';
+    
+    codigo=id;
+    $.post("php/borrarCitas.php",{id:codigo},tratarRespuestaPOSTBorrarCita);	
+    dialogo(texto,titulo);
+}
+
+function tratarRespuestaPOSTBorrarCita(){
+    cargarSelectCitas();
 }
 
 function cargarSelectCitas(){
@@ -769,7 +943,7 @@ function editarPago(event){
         });
     }
     else{		
-	/*$.get('php/getPagos.php',null,getBorrarPagos,'json');*/
+	
         $.get('php/getPagos.php',"rand="+Date.now(),getBorrarPagos,'xml');
     }
 }
@@ -863,7 +1037,7 @@ function validarCamposEditarPago(){
         }
         var oPago=new Pago(sId,sIdCliente,dFecha,fImporte,bPagada);
         actualizaCliente(oPago);
-        limpiaCampos()
+        limpiaCampos();
     }
     return bValido;
 }

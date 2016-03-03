@@ -1,6 +1,5 @@
 <!--ALTA CITAS-->
 <div class="col-xs-12" id="form-alta-edita-citas">
-    <h2>Alta cita</h2>
     <form method="post" class="form-horizontal" name="formCitas" id="formEditaCita">
         <div class="form-group" id="bloqueIdEditaCita">
             <label class="control-label" for="idEditaCita">ID</label>
@@ -15,7 +14,7 @@
         </div>
         <div class="form-group" id="bloqueDentistaEditaCita">
             <label class="control-label" for="dentistaEditaCita">Dentista</label>
-            <select class="form-control" id="dentistaEditaCita" name="dentista">
+            <select class="form-control selectDentista" id="dentistaEditaCita" name="dentista">
                 <option>--seleccione un dentista--</option>
             </select>
         </div>
@@ -55,7 +54,7 @@
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Aceptar" id="btnAltaEditaCita"/>
-            <input type="reset" class="btn btn-warning" value="Cancelar"/>
+            <input type="reset" class="btn btn-warning" value="Cancelar" id="btnCancelarEditaCita"/>
         </div>
     </form>
 </div>
