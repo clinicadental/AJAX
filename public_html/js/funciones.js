@@ -1050,7 +1050,6 @@ function validarCamposEditarPago(){
             bPagada=0;
         }
         var oPago=new Pago(sId,sIdCliente,dFecha,fImporte,bPagada);
-        alert(dFecha);
         actualizaPago(oPago);
         limpiaCampos();
     }
