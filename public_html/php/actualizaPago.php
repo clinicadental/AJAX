@@ -11,9 +11,9 @@
     $pago=json_decode($datos);
     $connection=mysql_connect($server,$user,$pass)or die(mysql_error());
     mysql_query("SET NAMES 'utf8'",$connection);
-    mysql_select_db($db,$connection) or die(mysql_error());
-    $string='UPDATE pago SET idcliente="'.$pago->idcliente.'",fechapago="'.$pago->fechapago.'",importe="'.$pago->importe.'" WHERE pagado="'.$pago->pagado.'"';
-    $result=@mysql_query($sql,$connection)or die(mysql_error());
+    mysql_select_db($db,$connection)or die(mysql_error());
+    $string='UPDATE pago SET idcliente="'.$pago->idcliente.'",fechapago="'.$pago->fechapago.'",importe="'.$pago->importe.'",pagado="'.$pago->pagada.'" WHERE id="'.$pago->id.'"';
+    $result=@mysql_query($string,$connection)or die(mysql_error());
     $message="PAGO MODIFICADO CON EXITO";
     echo $message;
     mysql_close($connection);

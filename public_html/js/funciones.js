@@ -936,27 +936,40 @@ function editarPago(event){
     if(oSelect.index()==0){	
 	dialogo("Error: seleccione un pago","Editar pago");
     }
-    if(opcion==1){
-        $("#dialogoEditaPago").load("html/formPago.html",function(){
-            $("#dialogoEditaPago").dialog();
-            $.get('php/getPagos.php',"rand="+Date.now(),getEditarPagos,'xml');
-        });
-    }
-    else{		
-	/*$.get('php/getPagos.php',null,getBorrarPagos,'json');*/
-        $.get('php/getPagos.php',"rand="+Date.now(),getBorrarPagos,'xml');
+    else{
+        if(opcion==1){
+            $("#dialogoEditaPago").load("html/formPago.html",function(){
+                cargarSelectClientes();
+                $("#dialogoEditaPago").dialog();
+                $.get('php/getPagos.php',"rand="+Date.now(),getEditarPagos,'xml');
+            });
+        }
+        else{		
+            $.get('php/getPagos.php',"rand="+Date.now(),getBorrarPagos,'xml');
+        }
     }
 }
 function getEditarPagos(xml){
+    $(".calendario").datepicker({altField : "#txtCalendarioAlternativo",
+        altFormat : $.datepicker.ATOM,
+        dateFormat : "yy'-'mm'-'dd",
+        changeYear: true,
+        changeMonth: true,
+        defaultDate: "-1m",
+        minDate: "-1y",
+        showAnim: "fadeIn",
+    });
     var oArrayPagos=$(xml).find("pago");
     oArrayPagos.each(function(){
         if($("#editaPago option:selected").val()==$(this).find("id").text()){
             $("#idEditaPago").val($(this).find("id").text()).text($(this).find("id").text()).attr("readonly","true");
-            $("#clienteEditaPago").val($(this).find("cliente").text()).text($(this).find("cliente").text());
+            $("#clienteEditaPago").val($(this).find("cliente").text());
             $("#fechaEditaPago").val($(this).find("fecha").text()).text($(this).find("fecha").text());
             $("#importeEditaPago").val($(this).find("importe").text()).text($(this).find("importe").text());
-            $("#citaEditaPagada").val($(this).find("pagada").text()).text($(this).find("pagada").text());
-        }   
+            if($(this).find("pagada").text()=="1"){
+                $("#citaEditaPagada").attr("checked","true");
+            }
+        }
     });
     $("#btnAltaEditaPago").on("click",validarEditarPago);
     $("#btnCancelarEditaPago").on("click",function(){$("#dialogoEditaPago").dialog("close");});
@@ -984,7 +997,7 @@ function validarCamposEditarPago(){
     var sIdCliente=$("#clienteEditaPago option:selected").val();
     var dFecha=$("#fechaEditaPago").val();
     var fImporte=$("#importeEditaPago").val();
-    var bPagada=$("#citaEditaPagada").val();
+    var bPagada=$("#citaEditaPagada").prop("checked");
     var bValido=true;
     var regId=/^([A-Z]{1})([0-9]{5})$/;
     var regImporte=/^([0-9]+([.]([0-9]{1,2}))?)$/;
@@ -1030,14 +1043,15 @@ function validarCamposEditarPago(){
         }
     }
     if(bValido){
-        if(bPagada=="on"){
+        if(bPagada==true){
             bPagada=1;
         }
         else{
             bPagada=0;
         }
         var oPago=new Pago(sId,sIdCliente,dFecha,fImporte,bPagada);
-        actualizaCliente(oPago);
+        alert(dFecha);
+        actualizaPago(oPago);
         limpiaCampos();
     }
     return bValido;
