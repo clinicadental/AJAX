@@ -939,22 +939,26 @@ function editarPago(event){
     if(opcion==1){
         $("#dialogoEditaPago").load("html/formPago.html",function(){
             $("#dialogoEditaPago").dialog();
-            $.get('php/getPagos.php',null,getEditarPagos,'json');
+            $.get('php/getPagos.php',"rand="+Date.now(),getEditarPagos,'xml');
         });
     }
     else{		
-	
+	/*$.get('php/getPagos.php',null,getBorrarPagos,'json');*/
         $.get('php/getPagos.php',"rand="+Date.now(),getBorrarPagos,'xml');
     }
 }
-function getEditarPagos(oArrayPagos){
-    $.each(oArrayPagos,function(i,elemento){		
-        if($("#editaPago option:selected").val()==elemento.id){
-            $("#idEditaPago").val(elemento.id).text(elemento.id).attr("readonly","true");
-            $("#clienteEditaPago").val(elemento.idcliente).text(elemento.idcliente);
-            $("#fechaEditaPago").val(elemento.fechapago).text(elemento.fechapago);
-            $("#importeEditaPago").val(elemento.importe).text(elemento.importe);
-            $("#citaEditaPagada").val(elemento.pagada).text(elemento.pagada);
+function getEditarPagos(xml){
+    var oArrayPagos=$(xml).find("pago");
+    var texto="";
+    var titulo="Borrar pago";
+    var codigo="";
+    oArrayPagos.each(function(){
+        if($("#editaPago option:selected").val()==$(this).find("id").text()){
+            $("#idEditaPago").val($(this).find("id").text()).text($(this).find("id").text()).attr("readonly","true");
+            $("#clienteEditaPago").val($(this).find("cliente").text()).text($(this).find("cliente").text());
+            $("#fechaEditaPago").val($(this).find("fecha").text()).text($(this).find("fecha").text());
+            $("#importeEditaPago").val($(this).find("importe").text()).text($(this).find("importe").text());
+            $("#citaEditaPagada").val($(this).find("pagada").text()).text($(this).find("pagada").text());
         }   
     });
     $("#btnAltaEditaPago").on("click",validarEditarPago);
