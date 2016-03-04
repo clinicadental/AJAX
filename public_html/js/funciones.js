@@ -949,9 +949,6 @@ function editarPago(event){
 }
 function getEditarPagos(xml){
     var oArrayPagos=$(xml).find("pago");
-    var texto="";
-    var titulo="Borrar pago";
-    var codigo="";
     oArrayPagos.each(function(){
         if($("#editaPago option:selected").val()==$(this).find("id").text()){
             $("#idEditaPago").val($(this).find("id").text()).text($(this).find("id").text()).attr("readonly","true");
