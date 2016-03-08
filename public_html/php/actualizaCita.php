@@ -28,7 +28,7 @@ mysql_query("SET NAMES 'utf8'", $conexion);
 
 mysql_select_db($basedatos, $conexion) or die(mysql_error());
 
-$sql = "UPDATE CITA SET IDCLIENTE='$cliente', IDDENTISTA='$dentista', IDPAGO='$pago', PROCEDIMIENTO='$procedimiento', DESCRIPCION='$descripcion', ATENDIDA='$atendida', SALA='$sala', FECHACITA='date' WHERE ID='$id'";
+$sql = "UPDATE CITA SET IDCLIENTE='$cliente', IDDENTISTA='$dentista', IDPAGO='$pago', PROCEDIMIENTO='$procedimiento', DESCRIPCION='$descripcion', ATENDIDA='$atendida', SALA='$sala', FECHACITA='$date' WHERE ID='$id'";
 
 $resultados = @mysql_query($sql, $conexion) or die(mysql_error());
 

@@ -84,6 +84,7 @@ function cargarFormularios(){
 	}
 	else{
             $("#listadoClientes").show("normal");
+            pedirListaClientes();
 	}
     });
     /*CITA*/
@@ -135,6 +136,7 @@ function cargarFormularios(){
 	}
 	else{
             $("#listadoCitas").show("normal");
+            pedirListaCitas();
 	}
     });
     /*PAGO*/
@@ -180,6 +182,7 @@ function cargarFormularios(){
 	}
 	else{
             $("#listadoPagos").show("normal");
+            pedirListaPagos();
 	}
     });
     /*DENTISTAS*/
@@ -683,7 +686,7 @@ function getEditarCitas(textoHTML){
     $("#descripcionEditaCita").val(desc);
     $("#salaEditaCita").val(sala);
     
-    if(atendida==1){
+    if(atendida=="1"){
         
         $("#atendidaEditaCita").attr("checked","true");
     } 
@@ -716,13 +719,16 @@ function validarEditarCita(evento){
 }
 
 function validarCamposEditarCita(){
- 
+    
+    var sId=$('#idEditaCita').val();
     var oCliente=$('#clienteEditaCita option:selected').val();
     var oDentista=$('#dentistaEditaCita option:selected').val();
     var oPago=$('#pagoEditaCita option:selected').val();
     var dFecha=$('#fechaEditaCita').val();
     var sProcedimiento=$("#procedimientoEditaCita").val();
+    var sDescripcion=$("#descripcionEditaCita").val();
     var oSala=$('#salaEditaCita option:selected').val();
+    var sAtendida=$('#atendidaEditaCita').val();
     
     var bValido=true;
     var patronCadena=/[a-zA-Z]+\s?/;
@@ -789,8 +795,15 @@ function validarCamposEditarCita(){
         }
     }
     if(bValido){
-        var datos=$("#formEditaCita").serialize();
-        $.post("php/actualizaCita.php",datos,function(oRespuesta){dialogo("OK : " + oRespuesta,"Edita cita");});
+        
+        if(sAtendida=="on")
+            sAtendida=1;
+        else
+            sAtendida=0;
+        
+        
+        var datos={id:sId,cliente:oCliente,dentista:oDentista,pago:oPago,date:dFecha,procedimiento:sProcedimiento,descripcion:sDescripcion,sala:oSala,atendida:sAtendida}
+        $.post("php/actualizaCita.php",datos,function(oRespuesta){dialogo("OK : " + oRespuesta,"Edita cita"); cargarSelectCitas();});
         limpiaCampos();
     }
     return bValido;
