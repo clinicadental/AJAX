@@ -687,7 +687,6 @@ function getEditarCitas(textoHTML){
     $("#salaEditaCita").val(sala);
     
     if(atendida=="1"){
-        
         $("#atendidaEditaCita").attr("checked","true");
     } 
     
@@ -728,7 +727,7 @@ function validarCamposEditarCita(){
     var sProcedimiento=$("#procedimientoEditaCita").val();
     var sDescripcion=$("#descripcionEditaCita").val();
     var oSala=$('#salaEditaCita option:selected').val();
-    var sAtendida=$('#atendidaEditaCita').val();
+    var sAtendida=$('#atendidaEditaCita').prop("checked");
     
     var bValido=true;
     var patronCadena=/[a-zA-Z]+\s?/;
@@ -795,12 +794,12 @@ function validarCamposEditarCita(){
         }
     }
     if(bValido){
-        
-        if(sAtendida=="on")
+        if(sAtendida==true){
             sAtendida=1;
-        else
+        }
+        else{
             sAtendida=0;
-        
+        }
         
         var datos={id:sId,cliente:oCliente,dentista:oDentista,pago:oPago,date:dFecha,procedimiento:sProcedimiento,descripcion:sDescripcion,sala:oSala,atendida:sAtendida}
         $.post("php/actualizaCita.php",datos,function(oRespuesta){dialogo("OK : " + oRespuesta,"Edita cita"); cargarSelectCitas();});
